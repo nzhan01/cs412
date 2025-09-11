@@ -1,22 +1,27 @@
+# file: quotes/views.py
+# Nicholas Zhang
+# nzhan01@bu.edu
+# created: 9/9/2025
+# views file containing all the relevent context varaiables for the quotes app
+ 
+
 from django.shortcuts import render
-
-# Create your views here.
-
 from django.http import HttpResponse, HttpRequest
 import time, random
-# Create your views here.
 
+# list of quotes 
 quotes=[
         "I'm just a little kid from Akron.",
         "Volleyball, I could be pretty good. After a few practices I could be that striker, or whatever they call it.",
         "I don't read books much.",
         ]
+
+# list of images
 images=[
     "https://render.fineartamerica.com/images/rendered/search/print/10.5/14/break/images/artworkimages/medium/2/the-chosen-one-st-vincent-st-mary-high-lebron-james-february-18-2002-sports-illustrated-cover.jpg",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxLZ3CaWcQmlhcPRbtBg0OXymHerFn1MY2BQ&s",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzn6Ke7Ku7OxgJAWC99OvGViXFCmAQlM2Frg&s",
 ]
-
 
 
 
@@ -32,6 +37,7 @@ def quote_page(request):
         "image": random.choice(images),
     }
     return render(request, template_name, context)
+
 
 
 def about(request):
