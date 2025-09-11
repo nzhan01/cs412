@@ -1,0 +1,23 @@
+
+
+{% extends 'quotes/base.html' %}
+    
+{% block content %}
+    <h1>All Quotes</h1>
+    <div id="quotes_list">
+        {% for quote in quotes %}
+        <p>- {{quote}}</p>
+    {% endfor %}
+    </div>
+    
+    
+    <div id="image_list">
+        <h2>All Lebron Images</h2>
+        {% for image in images %}
+    <img src="{{image}}" alt="Lebron James" width="300" justifyContent="center">
+    {% endfor %}
+    </div>
+    
+   
+    
+{% endblock  %}

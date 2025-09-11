@@ -1,0 +1,34 @@
+
+
+
+{% load static %}
+
+<html>
+
+<head>
+    <title>Home Page</title>
+
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home_page' %}">Home</a> |</li>
+            <li><a href="{% url 'about_page' %}">About</a> |</li>
+        </ul>
+       
+    </nav>
+    
+    {% block content %}
+    {% endblock  %}
+
+
+    <footer>
+         the current time is {{time}}
+         <br>
+         Here are some random values: {{letter1}} {{letter2}} {{number}} 
+        
+    </footer>
+</body>
+
+</html>

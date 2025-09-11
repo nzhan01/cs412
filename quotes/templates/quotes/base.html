@@ -1,0 +1,35 @@
+
+
+
+{% load static %}
+
+<html>
+
+<head>
+    <title>Home Page</title>
+
+    <link rel="stylesheet" href="{% static 'quotes_styles.css' %}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home_page' %}">Quote of the Day</a> |</li>
+            <li><a href="{% url 'about_page' %}">About</a> |</li>
+            <li><a href="{% url 'show_all_page' %}">Show All</a> |</li>
+
+        </ul>
+
+       
+    </nav>
+    
+    {% block content %}
+    {% endblock  %}
+
+    <footer>
+        this quote was generated on {{time}}
+    </footer>
+</body>
+
+
+
+</html>
