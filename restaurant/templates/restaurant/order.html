@@ -1,0 +1,73 @@
+<!-- order.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 9/17/2025
+    html file for the order template of the restaurant ordering project
+ 
+-->
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+<div>
+    <h1>Place Your Order</h1>
+    <form action="{% url 'confirmation' %}" method ="POST" >
+        {% csrf_token %}
+
+        Menu
+        <br>
+        <input type="checkbox" id="spicy tuna roll" name="spicy tuna roll" value="12">
+        <label for="vehicle1"> spicy tuna roll $12</label><br>
+
+        <input type="checkbox" id="hot wings" name="hot wings" value="7">
+        <label for="hot wings"> hot wings $7</label><br>
+
+        <input type="checkbox" id="jalapeno poppers" name="jalapeno poppers" value="6">
+        <label for="jalapeno poppers"> jalapeno poppers $6</label><br>
+
+        <input type="checkbox" id="spicy beef stew" name="spicy beef stew" value="9">
+        <label for="spicy beef stew"> spicy beef stew $9</label><br>
+
+        
+        <input type="checkbox" id="cajun fries" name="cajun fries" value="4">
+        <label for="cajun fries">cajun fries $4</label><br><br>
+
+        <fieldset>
+            <legend>Cajun Fries add-ons</legend>
+          
+            <label>
+              <input type="checkbox" name="extra_spicy" value="extra_spicy">
+              Extra Spicy
+            </label>
+            <br>
+          
+            <label>
+              <input type="checkbox" name="cheese" value="cheese">
+              With Cheese
+            </label>
+            <br>
+          
+            <label>
+              <input type="checkbox" name="extra_crispy" value="extra_crispy">
+                extra crispy
+            </label>
+          </fieldset>
+
+        Today's Special <br>
+        <input type="checkbox" id="{{special}}" name="{{special}}" value= "{{special_price}}" >
+        <label for="{{special}}"> {{special}} ${{special_price}} </label><br>
+
+        Special Instructions <br>
+        <input type="text" name="instructions" >
+        <br>
+        Name: <input type="text" name="name">
+        <br>
+        Phone: <input type="text" name="phone">
+        <br>
+        Email: <input type="text" name="email">
+        <input type="submit">
+
+        
+    </form>
+</div>
+    
+{% endblock %}

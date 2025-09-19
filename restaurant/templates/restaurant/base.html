@@ -1,0 +1,40 @@
+
+<!-- base.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 9/16/2025
+    html file for the base template of the restaurant ordering project
+ 
+-->
+
+{% load static %}
+
+<html>
+
+<head>
+    <title>Home Page</title>
+
+    <link rel="stylesheet" href="{% static 'restaurant_styles.css' %}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'main' %}">Home Page</a> |</li>
+            <li><a href="{% url 'order' %}">Order</a> |</li>
+
+        </ul>
+
+       
+    </nav>
+    
+    {% block content %}
+    {% endblock  %}
+
+    <footer>
+        the current time is  {{time}}
+    </footer>
+</body>
+
+
+
+</html>

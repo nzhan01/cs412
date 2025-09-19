@@ -1,0 +1,29 @@
+
+<!-- confirmation.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 9/17/2025
+    html file for the confirmation template of the restaurant ordering project
+ 
+-->
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+<div>
+    <h1>Order Confirmation</h1>
+    <p>Thank you, {{ name }}!</p>
+
+    <h2>Your order</h2>
+    <ul>
+        {% for item in order %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+    <p>Your order total is ${{ total }}.</p>
+    <p>Your special instructions: {{ instructions }}.</p>
+    <p>phone: {{ phone }}.</p>
+    <p>email: {{ email }}.</p>
+    <p> Your order will be ready by {{ready_time}}</p>
+</div>
+{% endblock %}
