@@ -1,3 +1,10 @@
+# file: restaurant/views.py
+# Nicholas Zhang
+# nzhan01@bu.edu
+# created: 9/16/2025
+# views file containing all the relevent context varaiables for the restaurant app
+ 
+
 from django.shortcuts import render
 from django.http import HttpResponse
 import time, random
