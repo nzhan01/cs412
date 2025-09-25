@@ -1,0 +1,24 @@
+{% load static %}
+
+<html>
+    <head>
+        <title> Mini_Insta</title>
+        <link rel="stylesheet" href="{% static 'styles-blog.css' %}">
+    </head>
+    <body>
+        <head>
+            <h1> Mini_Insta</h1>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'show_all_profiles'%}">Show All</a></li>
+
+                </ul>
+            </nav>
+               </head>
+        {% block content %}
+        {% endblock %}
+        <footer>
+            <a href="{% url 'show_all_profiles'%}">Show All</a>
+        </footer>
+    </body>
+</html>

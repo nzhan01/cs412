@@ -1,0 +1,24 @@
+
+
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+
+<h1> {{profile.username}}</h1>
+
+<main class="grid-container">
+    <article>
+        <div>
+            
+            <h3> by {{profile.display_name}}</h3>
+            <h3> joined: {{profile.join_date}}</h3>
+            <p>
+                {{profile.bio_text}}
+            </p>
+        </div>
+        
+        <img src="{{profile.profile_image_url}}" alt="Image for {{profile.profile_image_url}}">
+    </article>
+    <hr>
+</main>
+{% endblock %}
