@@ -1,0 +1,29 @@
+<!-- show_post.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 10/1/2025
+    html file for the show_post template of the mini insta project
+ 
+-->
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+
+<h1> Post by {{post.profile.username}}</h1>
+<main class="grid-container">
+    <article>
+        <div>
+            <h3> by {{post.profile.display_name}}</h3>
+            <h3> posted: {{post.timestamp}}</h3>
+            <p>
+                {{post.caption}}
+            </p>
+        </div>
+        
+        {% for photo in post.get_all_photos %}
+            <img src="{{photo.image_url}}" alt="Image for {{post.caption}}">
+        {% endfor %}
+    </article>
+
+
+{% endblock %}

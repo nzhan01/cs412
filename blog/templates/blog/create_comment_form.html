@@ -1,0 +1,23 @@
+<!-- blog/templates/blog/create_comment_form.html -->
+{% extends 'blog/base.html' %}
+ 
+ 
+{% block content %}
+ 
+ 
+    <h2>Add a comment on {{article.title}}</h2>
+    
+    <form method = 'POST'>
+        <input type='submit' name = 'Add Comment!' value= 'Add Comment!'>
+        
+        
+        <!-- then show this version -->
+        {{form.as_table}}
+        
+        
+        <!-- talk about CSRF -->
+        {% csrf_token %}
+    </form>
+ 
+ 
+{% endblock %}
