@@ -13,7 +13,9 @@
 <main class="grid-container">
     <article>
         <div>
-            <h3> by {{post.profile.display_name}}</h3>
+            <a href="{% url 'show_profile' post.profile.pk %}">
+                <h3> {{post.profile.display_name}}</h3>
+            </a>
             <h3> posted: {{post.timestamp}}</h3>
             <p>
                 {{post.caption}}

@@ -27,4 +27,13 @@
         {% endblock %}
         
     </body>
+    <footer>
+
+        {% if profile  %}
+        <a href ="{%url 'create_post' profile.pk %}">
+            <h2>create a post</h2> 
+        </a>
+           
+        {% endif %}
+    </footer>
 </html>

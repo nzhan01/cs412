@@ -25,10 +25,11 @@
         
         <img src="{{profile.profile_image_url}}" alt="Image for {{profile.profile_image_url}}">
 
-        <h2> Posts</h2>
+        <h1> Posts</h1>
         {% for post in profile.get_all_posts %}
             <div>
                 <p>
+                    {{post.timestamp}} <br>
                     {{post.caption}}
                 </p>
                 <a href="{% url 'show_post' post.pk %} ">

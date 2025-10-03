@@ -6,6 +6,7 @@
 
 
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -45,6 +46,10 @@ class Post(models.Model):
         photos = Photo.objects.filter(post=self)
         photos = photos.order_by('timestamp')
         return photos
+    
+    def get_absolute_url(self):
+        # redirect to the Post detail page after creation
+        return reverse("show_post", kwargs={"pk": self.pk})
 
 
 class Photo(models.Model):
