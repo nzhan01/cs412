@@ -1,24 +1,46 @@
 /* This CSS was derived from NetNinja's multi-column grid example. */
 
 body {
-    margin: 30px;
+    width: 80%;
+    margin: 0 auto;
     background: #8B0000;
     font-family:'Times New Roman', Times, serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 ul, li {
     padding: 0px;
     list-style-type: none;
 }
-
+main{
+    flex: 1;
+}
  h2, h3 {
     color: rgb(0, 0, 0);
 }
 h1{
     font-weight: bold;
     color: black;
-    margin-left: 110px;
+  
 }
 
+.form_container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 20px auto;
+    
+    padding: 20px;
+    background: #fdfbd4;
+    border-radius: 8px;
+    border: 1px solid #bbc7c7;
+    justify-content: center;
+}
+
+.no-underline {
+    text-decoration: none;
+}
 p {
     color: black;
 }
@@ -26,7 +48,7 @@ nav {
     background: #fdfbd4;
     padding: 10px;
     margin: 20px auto;
-    margin-left: 95px;
+   
     max-width: 1185px;
 }
 header {
@@ -67,6 +89,7 @@ article p, article h3 {
 
 nav li {
     display: inline;
+    font-weight: bold;
 }
 /* responsive styles: adapt to smaller screen sizes */
 @media screen and (max-width: 980px) {
