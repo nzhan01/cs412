@@ -11,18 +11,21 @@
     
     <h1>Create a new Post for {{profile.display_name}}</h1>
     <!-- display the HTML form -->
-    <a href="{% url 'show_profile' profile.pk %}">Cancel</a>
-
-    <form action="{% url 'create_post' profile.pk %}" method="POST">
-        {% csrf_token %}
-        <table>
-            {{form.as_table}}
-            <label for="image_url">Image URL:</label>
-            <input type="text" id= "image_url" name="image_url" value="">
-        </table>
-        <input type="submit" name="submit" value="Submit">
-        
-        
-    </form>
+     <div class="form_container">
+        <a href="{% url 'show_profile' profile.pk %}">Cancel</a>
+        <br>
+        <form action="{% url 'create_post' profile.pk %}" method="POST">
+            {% csrf_token %}
+            <table>
+                {{form.as_table}}
+                <label for="image_url">Image URL:</label>
+                <input type="text" id= "image_url" name="image_url" value="">
+            </table>
+            <input type="submit" name="submit" value="Submit">
+            
+            
+        </form>
+     </div>
+    
 
     {% endblock %}

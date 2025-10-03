@@ -57,6 +57,7 @@ class CreatePostView(CreateView):
  
         # add this article into the context dictionary:
         context['profile'] = profile
+        context['is_create_post'] = True
         return context
 
     def form_valid(self, form):
