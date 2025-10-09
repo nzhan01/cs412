@@ -6,9 +6,9 @@
 
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Profile, Post, Photo
-from .forms import CreatePostForm
+from .forms import CreatePostForm, UpdateProfileForm
 from django.urls import reverse
 
 # Create your views here.
@@ -92,4 +92,9 @@ class CreatePostView(CreateView):
         return response
     
 
-    
+class UpdateProfileView(UpdateView):
+    ''' view to update a profile'''
+
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = 'mini_insta/update_profile_form.html'

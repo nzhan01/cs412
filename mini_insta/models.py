@@ -28,6 +28,9 @@ class Profile(models.Model):
         posts = Post.objects.filter(profile=self)
         posts = posts.order_by('timestamp')  
         return posts
+    def get_absolute_url(self):
+        # redirect to the Post detail page after creation
+        return reverse("show_profile", kwargs={"pk": self.pk})
     
 
 class Post(models.Model):

@@ -11,6 +11,9 @@
 {% block content %}
 
 <h1> {{profile.username}}</h1>
+<a href="{% url 'update_profile' profile.pk %}">
+    Edit Profile
+</a>
 
 <main class="grid-container">
     <article>
@@ -25,6 +28,7 @@
         
         <img src="{{profile.profile_image_url}}" alt="Image for {{profile.profile_image_url}}">
 
+        <hr>
         <h1> Posts</h1>
         {% for post in profile.get_all_posts %}
             <div>
