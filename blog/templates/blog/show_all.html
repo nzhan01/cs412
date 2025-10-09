@@ -18,10 +18,14 @@
             </p>
         </div>
         <a href = "{% url 'article' article.pk %}"> 
-            <img src="{{article.image_url}}" alt="Image for {{article.title}}">
+            {% if  article.image_file %}
+            <img src="{{article.image_file.url}}" alt="Image for {{article.title}}">
+            {% else %}
+                <h3>No image for this article</h3>
+            {% endif %}
+            
         </a>
     </article>
-    
     {% endfor %}
 </main>
 {% endblock %}

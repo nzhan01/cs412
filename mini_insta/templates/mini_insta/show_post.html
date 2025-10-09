@@ -23,7 +23,12 @@
         </div>
         
         {% for photo in post.get_all_photos %}
+            {% if photo.image_file %}
+                <img src="{{photo.image_file.url}}" alt="Image for {{post.caption}}">
+            {% else %}
             <img src="{{photo.image_url}}" alt="Image for {{post.caption}}">
+            {% endif %}
+
         {% endfor %}
     </article>
 

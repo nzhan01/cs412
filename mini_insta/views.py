@@ -74,14 +74,20 @@ class CreatePostView(CreateView):
 
         response = super().form_valid(form)# call the superclass method to save the Post
 
+        files = self.request.FILES.getlist('image_file')
 
-        image_url = self.request.POST.get("image_url")
-        if image_url:  # only save if provided
+        for f in files:
             Photo.objects.create(
-                post=self.object,     # self.object = the saved Post
-                image_url=image_url,
-                
+                post=self.object,
+                image_file=f,
             )
+
+        #image_url = self.request.POST.get("image_url")
+        #if image_url:  # only save if provided
+        #    Photo.objects.create(
+        #        post=self.object,     # self.object = the saved Post
+        #        image_url=image_url,        
+        #    )
  
         return response
     

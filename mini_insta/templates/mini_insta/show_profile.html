@@ -33,7 +33,14 @@
                     {{post.caption}}
                 </p>
                 <a href="{% url 'show_post' post.pk %} ">
-                    <img src="{{post.get_all_photos.0.image_url}}" alt="no image for {{post.caption}}">
+                    {% if post.get_all_photos.0.image_file %}
+                        <img src="{{post.get_all_photos.0.image_file.url}}" alt="No image for {{post.caption}}">
+                    {% else %}
+                    <img src="{{post.get_all_photos.0.image_url}}" alt=" No image for {{post.caption}}">
+                    {% endif %}
+
+
+                    
                 </a>
                
             </div>
