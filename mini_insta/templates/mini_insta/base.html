@@ -31,11 +31,13 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="{% url 'show_all_profiles'%}">Show All</a>
+                        <a href="{% url 'show_all_profiles'%}" class="btn">
+                            Show All
+                        </a>
                     </li>
                     {% if profile  and not is_create_post %}
                     <li>
-                        <a href ="{%url 'create_post' profile.pk %}">
+                        <a href ="{%url 'create_post' profile.pk %}"class="btn">
                             Create Post
                         </a>
                     </li>

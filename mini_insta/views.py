@@ -6,7 +6,7 @@
 
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Profile, Post, Photo
 from .forms import CreatePostForm, UpdateProfileForm
 from django.urls import reverse
@@ -98,3 +98,62 @@ class UpdateProfileView(UpdateView):
     model = Profile
     form_class = UpdateProfileForm
     template_name = 'mini_insta/update_profile_form.html'
+
+
+class DeletePostView(DeleteView):
+    '''view to delete a post'''
+    model = Post
+    template_name = 'mini_insta/delete_post_form.html'
+
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+ 
+ 
+        # find/add the post to the context data
+        # retrieve the PK from the URL pattern
+        pk = self.kwargs['pk']
+        post = Post.objects.get(pk=pk)
+        profile = Post.objects.get(pk=pk).profile
+ 
+ 
+        # add this post into the context dictionary:
+        context['post'] = post
+        context['profile'] = profile
+        return context
+    
+
+    def get_success_url(self):
+        '''after deleting the post, redirect to the profile page'''
+        pk = self.object.profile.pk
+        return reverse('show_profile', kwargs={'pk': pk})
+    
+
+class UpdatePostView(UpdateView):
+    ''' view to update a post'''
+
+    model = Post
+    form_class = CreatePostForm
+    template_name = 'mini_insta/update_post_form.html'
+
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+ 
+ 
+        # find/add the post to the context data
+        # retrieve the PK from the URL pattern
+        pk = self.kwargs['pk']
+        post = Post.objects.get(pk=pk)
+ 
+ 
+        # add this post into the context dictionary:
+        context['post'] = post
+        return context
+    
+
+    def get_success_url(self):
+        '''after updating the post, redirect to the profile page'''
+        pk = self.kwargs['pk']
+        return reverse('show_post', kwargs={'pk': pk})
+    

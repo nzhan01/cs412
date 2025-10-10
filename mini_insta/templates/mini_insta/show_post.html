@@ -30,6 +30,16 @@
             {% endif %}
 
         {% endfor %}
+        <br/>
+        <a href ="{% url 'delete_post' post.pk %}"class="btn-secondary">
+             Delete Post 
+        </a>
+        <br/>
+        <a href ="{% url 'update_post' post.pk %}"class="btn-secondary">
+            Update Post 
+       </a>
+       <br/>
+
     </article>
 
 {% endblock %}

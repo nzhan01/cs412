@@ -3,7 +3,7 @@
 body {
     width: 80%;
     margin: 0 auto;
-    background: #8B0000;
+    background: #A24857;
     font-family:'Times New Roman', Times, serif;
     display: flex;
     flex-direction: column;
@@ -91,6 +91,54 @@ nav li {
     display: inline;
     font-weight: bold;
 }
+
+a.btn {
+    display: inline-block;
+    background-color: #8B0000;     
+    color: #fff;                   /* white text */
+    text-decoration: none;         /* remove underline */
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+a.btn:hover {
+    background-color: #a00000;    
+    transform: scale(1.02);       
+}
+
+a.btn:active {
+    background-color: #5a0000;     
+    transform: scale(0.98);
+}
+
+a.btn-secondary {
+    display: inline-block;
+    background-color: #a00000;
+    color: #fff;
+    text-decoration: none;
+    padding: 6px 14px;      
+    border-radius: 5px;
+    font-size: 0.9rem;       
+    font-weight: 500;
+    margin: 5px 5px 5px 0;   
+    text-align: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+a.btn-secondary:hover {
+    background-color: #b22222;
+    transform: scale(1.03);
+}
+
+a.btn-secondary:active {
+    background-color: #7a0000;
+    transform: scale(0.97);
+}
+
+
 /* responsive styles: adapt to smaller screen sizes */
 @media screen and (max-width: 980px) {
 

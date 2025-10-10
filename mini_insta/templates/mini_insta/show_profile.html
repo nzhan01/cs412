@@ -11,7 +11,7 @@
 {% block content %}
 
 <h1> {{profile.username}}</h1>
-<a href="{% url 'update_profile' profile.pk %}">
+<a href="{% url 'update_profile' profile.pk %}" class="btn">
     Edit Profile
 </a>
 
@@ -19,7 +19,7 @@
     <article>
         <div>
             
-            <h3> by {{profile.display_name}}</h3>
+            <h3>  {{profile.display_name}}</h3>
             <h3> joined: {{profile.join_date}}</h3>
             <p>
                 {{profile.bio_text}}

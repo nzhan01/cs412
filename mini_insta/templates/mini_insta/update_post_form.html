@@ -1,0 +1,43 @@
+<!-- update_post_form.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 10/8/2025
+    html form file for the update_post template of the mini insta project
+ 
+-->{% extends 'mini_insta/base.html' %}
+ 
+ 
+{% block content %}
+<h2>Update Post </h2>
+ 
+ 
+<form method = 'POST' enctype="multipart/form-data">
+{% csrf_token %}
+  
+ 
+    <table>
+    {% for field in form %}
+    <tr>
+        <th>{{field.name}}</th>
+        <td>{{field}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td></td>
+        <td>
+            <input type='submit' name = 'update_post' value= 'Update Post'>
+        </td>
+        
+        
+    </tr>
+   
+    </table>
+    <form action="{% url 'show_post' post.pk %}" method="GET">
+        <input type="submit" value="Cancel" />
+    </form>
+    
+</form>
+
+ 
+{% endblock %}
+ 
