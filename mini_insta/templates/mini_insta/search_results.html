@@ -1,0 +1,71 @@
+
+
+<!-- search_results.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 10/16/2025
+    html file for the search_results template of the mini insta project
+ 
+-->
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+
+<h1> Showing all Results</h1>
+
+<main class="grid-container">
+    <h2>All Profile Results</h2>
+    {% for profile in profiles %}
+
+    <article>
+        <div>
+            <h2> {{profile.username}}</h2>
+            <a href = "{% url 'show_profile' profile.pk %}"> 
+                <h3> {{profile.display_name}}</h3>
+            </a>
+        </div>
+        <div class ="small_pfp_icon">
+            <a href = "{% url 'show_profile' profile.pk %}"> 
+                <img src="{{profile.profile_image_url}}" alt="Image for {{profile.title}}">            
+            </a>
+        </div>
+        
+        
+    </article>
+    
+    {% endfor %}
+    <h2>All Post Results</h2>
+    {% for post in posts %}
+    <article>
+        <div>
+            <a href = "{% url 'show_profile' post.profile.pk %}">  
+                <h3> {{post.profile.display_name}}</h3>
+            </a>
+        </div>
+        <div class ="small_pfp_icon">
+            <a href = "{% url 'show_profile' post.profile.pk %}">  
+                <img src="{{post.profile.profile_image_url}}" alt="Image for {{post.profile.title}}">             
+            </a>
+        </div>
+         
+        <div>
+            <p>
+                {{post.timestamp}} <br>
+                {{post.caption}}
+            </p>
+            <a href="{% url 'show_post' post.pk %} ">
+                {% if post.get_all_photos.0.image_file %}
+                    <img src="{{post.get_all_photos.0.image_file.url}}" alt="No image for {{post.caption}}">
+                {% else %}
+                <img src="{{post.get_all_photos.0.image_url}}" alt=" No image for {{post.caption}}">
+                {% endif %} 
+            </a>
+
+            
+        </div>
+        <hr>
+    </article>
+        {% endfor %}
+
+</main>
+{% endblock %}

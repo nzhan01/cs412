@@ -86,6 +86,7 @@ article p, article h3, article h2, article h1, article h4 {
 
 }
 
+
 article a{
     text-decoration: none;
     margin: 20px 10px;
@@ -96,6 +97,12 @@ article a{
 nav li {
     display: inline;
     font-weight: bold;
+}
+
+    
+a{
+    text-decoration: none;
+    color: black;
 }
 
 a.btn {
@@ -144,6 +151,19 @@ a.btn-secondary:active {
     transform: scale(0.97);
 }
 
+img.small_pfp_icon{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    vertical-align: middle;
+    margin-right:10px;
+}
+.profile_header{
+    display:flex;
+    align-items:center;
+    margin-bottom:20px;
+    gap: 10px;
+}
 
 /* responsive styles: adapt to smaller screen sizes */
 @media screen and (max-width: 980px) {

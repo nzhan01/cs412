@@ -22,9 +22,12 @@
                 <h3> {{post.profile.display_name}}</h3>
             </a>
         </div>
-        <a href = "{% url 'show_profile' post.profile.pk %}"> 
-            <img src="{{post.profile.profile_image_url}}" alt="Image for {{post.profile.title}}">            
-        </a>
+        <div class ="small_pfp_icon">
+            <a href = "{% url 'show_profile' post.profile.pk %}"> 
+                <img class ="small_pfp_icon" src="{{post.profile.profile_image_url}}" alt="Image for {{post.profile.title}}">            
+            </a>
+        </div>
+        
 
         <div>
             <p>

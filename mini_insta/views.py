@@ -206,3 +206,38 @@ class PostFeedListView(ListView):
         context['profile'] = profile
         context['posts'] = profile.get_post_feed()
         return context
+    
+class SearchView(ListView):
+    '''display search results for keywords'''
+    model = Post
+    template_name = 'mini_insta/search_results.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        '''override dispatch to get the search query from the request'''
+        self.profile = Profile.objects.get(pk=kwargs['pk'])
+        if 'query' in self.request.GET :
+            self.query = self.request.GET['query']
+
+        else:
+            return render(request, 'mini_insta/search.html', {'profile': self.profile})
+        
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_queryset(self):
+        '''override get_queryset to filter profiles based on the search query'''
+        post_results =  Post.objects.filter(caption__contains=self.query) 
+        return post_results
+
+
+    def get_context_data(self, **kwargs):
+        '''get the context data for the search results'''
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('query')
+        posts = self.get_queryset()
+        profiles = (Profile.objects.filter(display_name__icontains=query) | Profile.objects.filter(username__icontains=query)| Profile.objects.filter(bio_text__icontains=query)).distinct()
+
+        context['query'] = query
+        context['profiles'] = profiles
+        context['posts'] = posts
+        context['profile'] = self.profile
+        return context
