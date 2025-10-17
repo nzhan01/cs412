@@ -1,0 +1,37 @@
+
+
+<!-- show_followering.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 10/16/2025
+    html file for the show_following template of the mini insta project
+ 
+-->
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+
+<h1> {{ profile.username}} Follows</h1>
+
+<main class="grid-container">
+    {% for profile in profile.get_following %}
+
+    <article>
+        <div>
+            <h2> {{profile.username}}</h2>
+            <a href = "{% url 'show_profile' profile.pk %}"> 
+                <h3> {{profile.display_name}}</h3>
+            </a>
+            <p>
+                {{profile.bio_text}}
+            </p>
+        </div>
+        <a href = "{% url 'show_profile' profile.pk %}"> 
+            <img src="{{profile.profile_image_url}}" alt="Image for {{profile.title}}">            
+        </a>
+        
+    </article>
+    
+    {% endfor %}
+</main>
+{% endblock %}

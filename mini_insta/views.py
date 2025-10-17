@@ -157,3 +157,38 @@ class UpdatePostView(UpdateView):
         pk = self.kwargs['pk']
         return reverse('show_post', kwargs={'pk': pk})
     
+
+class ShowFollowersDetailView(DetailView):
+    '''display the followers for a single profile'''
+    model = Profile
+    template_name = 'mini_insta/show_followers.html'
+    context_object_name = 'profile' 
+
+    def get_context_data(self, **kwargs): 
+        context = super().get_context_data(**kwargs)
+ 
+ 
+        pk = self.kwargs['pk']
+        profile = Profile.objects.get(pk=pk)
+ 
+        context['profile'] = profile
+        #context['followers'] = profile.get_followers()
+        return context
+
+
+class ShowFollowingDetailView(DetailView):
+    '''display the following for a single profile'''
+    model = Profile
+    template_name = 'mini_insta/show_following.html'
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs): 
+        context = super().get_context_data(**kwargs)
+ 
+ 
+        pk = self.kwargs['pk']
+        profile = Profile.objects.get(pk=pk)
+ 
+        context['profile'] = profile
+        return context
+    

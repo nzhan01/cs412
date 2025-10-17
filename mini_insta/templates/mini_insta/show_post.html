@@ -16,7 +16,12 @@
             <a href="{% url 'show_profile' post.profile.pk %}">
                 <h3> {{post.profile.display_name}}</h3>
             </a>
-            <h3> posted: {{post.timestamp}}</h3>
+            <h3> Posted: {{post.timestamp}}</h3>
+            {%if post.get_likes.count != 0 %}
+            <h3>{{post.get_likes.count}} Likes </h3>
+            {%else %}
+            <h3>No likes yet</h3>
+            {% endif %}
             <p>
                 {{post.caption}}
             </p>
@@ -30,16 +35,32 @@
             {% endif %}
 
         {% endfor %}
-        <br/>
-        <a href ="{% url 'delete_post' post.pk %}"class="btn-secondary">
-             Delete Post 
+        
+       
+    </article> 
+    
+<article>
+    
+    {% for comment in post.get_all_comments %}
+    <div>
+        <a href="{% url 'show_profile' comment.profile.pk %}">
+            <p> <b>@{{comment.profile.username}}</b>: {{comment.text}}</p>
         </a>
-        <br/>
-        <a href ="{% url 'update_post' post.pk %}"class="btn-secondary">
-            Update Post 
-       </a>
-       <br/>
+    </div>
+{% endfor %}
+</article>
+<article>
+    <br/>
+    <a href ="{% url 'delete_post' post.pk %}"class="btn-secondary">
+         Delete Post 
+    </a>
+    <br/>
+    <a href ="{% url 'update_post' post.pk %}"class="btn-secondary">
+        Update Post 
+   </a>
+   <br/>
+</article>
 
-    </article>
+    </main>    
 
 {% endblock %}

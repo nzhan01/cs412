@@ -32,6 +32,31 @@ class Profile(models.Model):
         # redirect to the Post detail page after creation
         return reverse("show_profile", kwargs={"pk": self.pk})
     
+    def get_followers(self):
+        '''Return all followers of this profile.'''
+        followers = Follow.objects.filter(profile=self)
+
+        follower_list = []
+        for f in followers:
+            follower_list.append(f.follower_profile)
+        return follower_list
+    
+    def get_following(self):
+        '''return all profiles this profile is following'''
+        following = Follow.objects.filter (follower_profile=self)
+        following_list = []
+        for f in following:
+            following_list.append(f.profile)
+        return following_list
+    
+    def get_num_followers(self):
+        '''return the number of followers this profile has'''
+        return len(self.get_followers())
+    
+    def get_num_following(self):
+        '''return the number of profiles this profile is following'''
+        return len(self.get_following())
+
 
 class Post(models.Model):
     '''data for a post'''
@@ -41,7 +66,7 @@ class Post(models.Model):
 
     def __str__(self):
         '''return a string representation of the Post'''
-        return f'{self.profile} @ {self.timestamp}: {self.caption} ' 
+        return f'{self.profile.username} @ {self.timestamp}: {self.caption} ' 
     
 
     def get_all_photos(self):
@@ -53,6 +78,16 @@ class Post(models.Model):
     def get_absolute_url(self):
         # redirect to the Post detail page after creation
         return reverse("show_post", kwargs={"pk": self.pk})
+    
+    def get_all_comments(self):
+        '''return all comments for a post'''
+        comments = Comment.objects.filter(post=self)
+        return comments
+    
+    def get_likes(self):
+        ''' get all likes for a post'''
+        likes = Like.objects.filter(post=self)
+        return likes
 
 
 class Photo(models.Model):
@@ -76,3 +111,37 @@ class Photo(models.Model):
             return self.image_file.url
         else:
             return self.image_url 
+        
+class Follow(models.Model):
+    '''data for a follow relationship'''
+
+    profile = models.ForeignKey("Profile" , related_name="profile", on_delete=models.CASCADE)
+    follower_profile = models.ForeignKey("Profile", related_name="follower_profile", on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        '''return a string representation of the Follow'''
+        return f'{self.follower_profile.username} follows {self.profile.username} '
+    
+
+class Comment(models.Model):
+    '''data for a comment on a post'''
+    post = models.ForeignKey("Post", on_delete=models.CASCADE)
+    profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
+    text = models.TextField(blank=False)
+
+
+    def __str__(self):
+        '''return a string representation of the Comment'''
+        return f'{self.profile} on {self.timestamp}: {self.text} '
+    
+class Like(models.Model):
+    '''data for a like on a post'''
+    post = models.ForeignKey("Post", on_delete=models.CASCADE)
+    profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        '''return a string representation of the Like'''
+        return f'{self.profile} liked {self.post} on {self.timestamp} '
