@@ -1,0 +1,62 @@
+
+
+<!-- show_feed.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 10/16/2025
+    html file for the show_feed template of the mini insta project
+ 
+-->
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+
+<h1> Showing Feed for {{profile.display_name}}</h1>
+
+<main class="grid-container">
+    {% for post in posts %}
+
+    <article>
+        <div>
+            <a href = "{% url 'show_profile' post.profile.pk %}"> 
+                <h3> {{post.profile.display_name}}</h3>
+            </a>
+        </div>
+        <a href = "{% url 'show_profile' post.profile.pk %}"> 
+            <img src="{{post.profile.profile_image_url}}" alt="Image for {{post.profile.title}}">            
+        </a>
+
+        <div>
+            <p>
+                {{post.timestamp}} <br>
+                {{post.caption}}
+            </p>
+            <a href="{% url 'show_post' post.pk %} ">
+                {% if post.get_all_photos.0.image_file %}
+                    <img src="{{post.get_all_photos.0.image_file.url}}" alt="No image for {{post.caption}}">
+                {% else %}
+                <img src="{{post.get_all_photos.0.image_url}}" alt=" No image for {{post.caption}}">
+                {% endif %} 
+            </a>
+
+            {%if post.get_likes.count != 0 %}
+            <h3>{{post.get_likes.count}} Likes </h3>
+            {%else %}
+            <h3>No likes yet</h3>
+            {% endif %}
+            {% for comment in post.get_all_comments %}
+                <div>
+                    <a href="{% url 'show_profile' comment.profile.pk %}">
+                        <p> <b>@{{comment.profile.username}}</b>: {{comment.text}}</p>
+                    </a>
+                </div>
+            {% endfor %}
+
+           
+        </div>
+        <hr>
+    </article>
+    
+    {% endfor %}
+</main>
+{% endblock %}

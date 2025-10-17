@@ -42,6 +42,20 @@
                         </a>
                     </li>
                     {% endif %}
+
+                    {% if profile%}
+                    <li>
+                        <a href ="{%url 'show_profile' profile.pk %}" class="btn">
+                            My Profile
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{%url 'show_feed' profile.pk %}" class="btn">
+                            My Feed
+                        </a>
+                    </li>
+                    {% endif %}
                 </ul>
             </nav>
             
