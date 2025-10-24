@@ -8,7 +8,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from .models import Profile, Post, Photo
-from .forms import CreatePostForm, UpdateProfileForm
+from .forms import CreatePostForm, UpdateProfileForm, CreateProfileForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin ## NEW
 from django.contrib.auth.forms import UserCreationForm ## NEW
@@ -295,9 +295,42 @@ class SearchView(MiniInstaLoginRequiredMixin, ListView):
         return context
     
 
-class ProfileAccessMixin(LoginRequiredMixin):
-    """helper to get the logged-in user's Profile."""
-    
-    def get_profile(self):
-        """Return the Profile object for the currently logged-in user."""
-        return Profile.objects.get(user=self.request.user)
+class CreateProfileView(CreateView):
+    '''view to create a new profile'''
+    model = Profile
+    form_class = CreateProfileForm
+    template_name = "mini_insta/create_profile_form.html"
+
+    def get_context_data(self, **kwargs):
+        '''Return the dictionary of context variables for use in the template.'''
+ 
+ 
+        # calling the superclass method
+        context = super().get_context_data(**kwargs)
+ 
+ 
+        context['user_form'] = UserCreationForm()
+        return context
+
+    def form_valid(self, form):
+        '''This method handles the form submission and saves the 
+        new object to the Django database.
+        We need to add the foreign key (of the Profile) to the post
+        object before saving it to the database.
+        '''
+        user_form = UserCreationForm(self.request.POST)
+
+        if not user_form.is_valid():
+            # Re-render the page with both forms and their errors
+            context = self.get_context_data(form=form, user_form=user_form)
+            return self.render_to_response(context)
+
+        
+        user_form.is_valid()
+        user = user_form.save()
+        login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+        form.instance.user = user
+        
+        response = super().form_valid(form)
+ 
+        return response

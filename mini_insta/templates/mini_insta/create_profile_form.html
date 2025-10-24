@@ -1,0 +1,50 @@
+<!-- create_profile_form.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 10/23/2025
+    html form file for the create_profile template of the mini insta project
+ 
+-->
+
+{% extends 'mini_insta/base.html' %}
+ 
+ 
+{% block content %}
+<h1>Create A Profile</h1>
+ 
+ 
+<form method = 'POST' enctype="multipart/form-data">
+{% csrf_token %}
+ 
+ 
+ 
+ 
+    <table>
+        <h2> Account Info</h2>
+        {{user_form}}
+        {{form.as_table}}
+    
+    <br>
+    <br>
+    <h2> Profile info</h2>
+    
+        <td>
+            <input type='submit' name = 'create_profile' value= 'Create Profile!'>
+        </td>  
+    </tr>
+    
+    </table>
+    
+    
+</form>
+<tr>
+    <td>
+        <form action="{% url 'show_all_profiles' %}" method="GET">
+            <input type="submit" value="Cancel" />
+        </form>
+    </td>
+</tr>
+
+ 
+{% endblock %}
+ 
