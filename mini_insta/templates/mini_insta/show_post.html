@@ -51,13 +51,16 @@
 </article>
 <article>
     <br/>
+    {% if request.user.is_authenticated and request.user == post.profile.user %}
     <a href ="{% url 'delete_post' post.pk %}"class="btn-secondary">
-         Delete Post 
-    </a>
-    <br/>
-    <a href ="{% url 'update_post' post.pk %}"class="btn-secondary">
-        Update Post 
+        Delete Post 
    </a>
+   <br/>
+   <a href ="{% url 'update_post' post.pk %}"class="btn-secondary">
+       Update Post 
+  </a>
+    {% endif %}
+    
    <br/>
 </article>
 

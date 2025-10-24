@@ -13,12 +13,12 @@
 <h2>Search</h2>
  
  
-<form method = 'GET' action="{% url 'search' profile.pk %}">
+<form method = 'GET' action="{% url 'search'  %}">
 {% csrf_token %}
  
  
  
-    <h2>{{profile.username}}</h2>
+    <h3>Searching as {{profile.username}}</h3>
     <table>
         <tr>
             <td>

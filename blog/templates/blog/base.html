@@ -12,8 +12,25 @@
                 <ul>
                     <li><a href="{% url 'random'%}">Random</a></li>
                     <li><a href="{% url 'show_all'%}">Show All</a></li>
-                    <li><a href="{% url 'create_article' %}">Create</a></li>
+                    <!-- Add: URLs for authentication -->
+                    {% if request.user.is_authenticated %}           
+                    <li><a href="{% url 'create_article' %}">Create</a></li>         
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <li><input type="submit" value ="Logout"></li>
+                    </form>
+                    
+                     <!-- if not logged in -->
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Log in</a></li>
+                    {% endif %}
                 </ul>
+                <hr>
+                {% if request.user.is_authenticated %}
+                Logged in user: {{ request.user }}.
+                {% else %}
+                Not logged in.
+                {% endif %}
             </nav>
                </head>
         {% block content %}

@@ -7,6 +7,10 @@ from .models import Article, Comment
 from .forms import CreateArticleForm
 from .forms import CreateCommentForm, UpdateArticleForm
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin ## NEW
+from django.contrib.auth.forms import UserCreationForm ## NEW
+from django.contrib.auth.models import User ## NEW
+from django.contrib.auth import login # NEW
 
 import random
 # Create your views here.
@@ -17,6 +21,18 @@ class ShowAllView(ListView):
     model= Article
     template_name = 'blog/show_all.html'
     context_object_name = 'articles' # should be plural
+
+    def dispatch(self, request, *args, **kwargs):
+        '''Override the dispatch method to add debugging information.'''
+ 
+ 
+        if request.user.is_authenticated:
+            print(f'ShowAllView.dispatch(): request.user={request.user}')
+        else:
+            print(f'ShowAllView.dispatch(): not logged in.')
+ 
+ 
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ArticleView(DetailView):
@@ -39,7 +55,7 @@ class RandomArticleView(DetailView):
         return article
     
 
-class CreateArticleView(CreateView):
+class CreateArticleView(LoginRequiredMixin, CreateView):
     '''a view to create a new article'''
     #model = Article
     form_class = CreateArticleForm
@@ -51,10 +67,19 @@ class CreateArticleView(CreateView):
         Handle the form submission to create a new Article object.
         '''
         print(f'CreateArticleView: form.cleaned_data={form.cleaned_data}')
+        # find the logged in user
+        user = self.request.user
+        print(f"CreateArticleView user={user} article.user={user}")
  
- 
+        # attach user to form instance (Article object):
+        form.instance.user = user
+  
 		# delegate work to the superclass version of this method
         return super().form_valid(form)
+    
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login') 
     
 
 
@@ -151,3 +176,14 @@ class DeleteCommentView(DeleteView):
         
         # reverse to show the article page
         return reverse('article', kwargs={'pk':article.pk})
+    
+class UserRegistrationView(CreateView):
+    '''A view to register a new user.'''
+ 
+    form_class = UserCreationForm
+    template_name = 'blog/register.html'
+    model = User
+    
+    def get_success_url(self):
+        '''The URL to redirect to after creating a new User.'''
+        return reverse('login')

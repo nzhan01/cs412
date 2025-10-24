@@ -11,9 +11,12 @@
 {% block content %}
 
 <h1> {{profile.username}}</h1>
-<a href="{% url 'update_profile' profile.pk %}" class="btn">
+{% if request.user.is_authenticated and request.user == profile.user %}
+<a href="{% url 'update_profile'  %}" class="btn">
     Edit Profile
 </a>
+{% endif %}
+
 <h2>
      <a href = "{% url 'show_followers' profile.pk %}">Followers: {{profile.get_num_followers}}</a> |  <a href = "{% url 'show_following' profile.pk %}">Following: {{profile.get_num_following}} </a>
 </h2>
