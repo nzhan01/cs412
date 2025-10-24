@@ -35,14 +35,28 @@
         <footer>
             <nav>
                 <ul>
+                    {% if request.user.is_authenticated %}
+                    <li>
+                        <a href ="{%url 'my_profile'  %}" class="btn">
+                            My Profile
+                        </a>
+                    </li>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <li><button type="submit" >Log Out</button></li>
+                        </form>
                     
+                    
+                    {% else %}
+                    <li>
+                        <a href="{% url 'login' %}" class="btn">
+                            Log in
+                        </a>
+                    </li>
+                    {% endif %}
                     
                     {% if request.user.is_authenticated and profile%}
-                        <li>
-                            <a href ="{%url 'show_profile' profile.pk %}" class="btn">
-                                Profile
-                            </a>
-                        </li>
+                        
                         {% if  request.user == profile.user %}
                             {% if not is_create_post %}
                         <li>

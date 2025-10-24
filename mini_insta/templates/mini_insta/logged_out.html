@@ -1,0 +1,32 @@
+
+
+<!-- logged_out.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 9/26/2025
+    html file for the logged_out template of the mini insta project
+ 
+-->
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+
+<h1> Successfully Logged Out</h1>
+
+<main class="grid-container">
+    
+    <article>
+        <div>
+            <a href = "{% url 'show_all_profiles'  %}" class="btn"> 
+                <h3> Show All</h3>
+            </a>
+        
+        <a href = "{% url 'login'  %}" class="btn"> 
+            <h3>Log in </h3>        
+        </a>
+    </div>
+        
+    </article>
+    
+</main>
+{% endblock %}

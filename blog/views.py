@@ -15,6 +15,7 @@ from django.contrib.auth import login # NEW
 import random
 # Create your views here.
 
+
 class ShowAllView(ListView):
     '''define a view to show all articles'''
 
