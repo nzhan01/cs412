@@ -50,6 +50,21 @@ nav {
    
     max-width: 1185px;
 }
+nav ul {
+    display: flex;         /* Make the list horizontal */
+    gap: 10px;             /* spacing between items */
+    align-items: center;   /* vertically align buttons */
+    padding: 0;
+    margin: 0;
+}
+nav li {
+    list-style: none;      /* remove bullets */
+}
+nav li form {
+    display: inline;       /* make the form inline so it doesn't break row */
+    margin: 0;             /* remove extra form margin/padding */
+}
+
 header {
     max-width: 1200px;
     margin: 40px auto;
@@ -105,7 +120,7 @@ a{
     color: black;
 }
 
-a.btn {
+a.btn, button.btn {
     display: inline-block;
     background-color: #8B0000;     
     color: #fff;                   /* white text */
@@ -117,7 +132,7 @@ a.btn {
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-a.btn:hover {
+a.btn:hover, button.btn:hover {
     background-color: #a00000;    
     transform: scale(1.02);       
 }

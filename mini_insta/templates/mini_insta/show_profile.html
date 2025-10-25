@@ -17,6 +17,24 @@
 </a>
 {% endif %}
 
+{% if request.user.is_authenticated and request.user != profile.user %}
+    {% if already_follows %}
+        <a href="{% url 'unfollow_profile' profile.pk %}" class="btn">
+            UnFollow
+        </a>
+        {% else %}
+        <a href="{% url 'follow_profile' profile.pk %}" class="btn">
+            Follow
+        </a>
+        {% endif %}
+{% endif %}
+
+
+
+
+
+
+
 <h2>
      <a href = "{% url 'show_followers' profile.pk %}">Followers: {{profile.get_num_followers}}</a> |  <a href = "{% url 'show_following' profile.pk %}">Following: {{profile.get_num_following}} </a>
 </h2>

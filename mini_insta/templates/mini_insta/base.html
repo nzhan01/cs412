@@ -41,11 +41,12 @@
                             My Profile
                         </a>
                     </li>
+                    <li>
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
-                            <li><button type="submit" >Log Out</button></li>
+                            <button type="submit" class="btn" >Log Out</button>
                         </form>
-                    
+                    </li>
                     
                     {% else %}
                     <li>

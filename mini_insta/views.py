@@ -5,9 +5,9 @@
 # models file containing all the views for the mini_insta app
 
 
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
-from .models import Profile, Post, Photo
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView, RedirectView, View
+from .models import Profile, Post, Photo, Follow, Like
 from .forms import CreatePostForm, UpdateProfileForm, CreateProfileForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin ## NEW
@@ -43,6 +43,15 @@ class ProfileDetailView(DetailView):
     template_name = 'mini_insta/show_profile.html'
     context_object_name = 'profile' # should be singular
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if not self.request.user.is_authenticated:
+            context['already_follows'] = False
+            return context
+        selfProfile = Profile.objects.get(user=self.request.user)
+        context['already_follows'] = Follow.objects.filter(follower_profile=selfProfile,profile=self.get_object()).exists()
+        return context
+
     
 class MyProfileDetailView(MiniInstaLoginRequiredMixin, DetailView):
     '''display a single profile'''
@@ -66,6 +75,20 @@ class PostDetailView(DetailView):
     template_name = 'mini_insta/show_post.html'
     context_object_name = 'post' # should be singular
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        
+        # Only set already_liked if user is authenticated
+        if self.request.user.is_authenticated:
+            user_profile = Profile.objects.get(user=self.request.user)
+            context['already_liked'] = Like.objects.filter(
+                profile=user_profile, post=post
+            ).exists()
+        else:
+            context['already_liked'] = False
+
+        return context
 
 class CreatePostView(MiniInstaLoginRequiredMixin, CreateView):
     '''a view to create a new post'''
@@ -334,3 +357,94 @@ class CreateProfileView(CreateView):
         response = super().form_valid(form)
  
         return response
+    
+
+    
+class FollowProfileView(MiniInstaLoginRequiredMixin, TemplateView):
+    '''view to follow a profile'''
+    model = Follow
+    def dispatch(self, request, *args, **kwargs):
+        follower = self.get_profile()
+        followed = Profile.objects.get(pk=kwargs['pk'])
+
+        # Prevent self-follow
+        if follower != followed:
+            existing_follow = Follow.objects.filter(
+                follower_profile=follower, profile=followed).first()
+            if not existing_follow:
+                Follow.objects.create(
+                    follower_profile=follower,
+                    profile=followed
+                )
+
+        return redirect('show_profile', pk=followed.pk)
+
+class UnfollowProfileView(MiniInstaLoginRequiredMixin, TemplateView):
+    '''view to unfollow a profile'''
+    model = Follow
+    def dispatch(self, request, *args, **kwargs):
+        follower = self.get_profile()
+        followed = Profile.objects.get(pk=kwargs['pk'])
+        Follow.objects.filter(follower_profile=follower,  profile=followed).delete()
+        return  redirect('show_profile', pk=followed.pk)
+    
+class LikePostView(MiniInstaLoginRequiredMixin, DetailView):
+    '''view to like a post'''
+    model = Post
+    context_object_name = 'post' # should be singular
+
+    template_name = 'mini_insta/show_post.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        liker = self.get_profile()
+        liked_post = Post.objects.get(pk=self.kwargs['pk'])
+
+        if liker != liked_post.profile:
+            existing_like = Like.objects.filter(
+                profile=liker, post=liked_post).first()
+            if not existing_like:
+                Like.objects.create(
+                    profile=liker,
+                    post=liked_post
+                )
+
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        '''get context data for the post detail view'''
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        if self.request.user.is_authenticated:
+            user_profile = self.get_profile()
+            context['already_liked'] = Like.objects.filter(profile=user_profile, post=post).exists()
+        else:
+            context['already_liked'] = False
+
+        return context
+
+class UnlikePostView(MiniInstaLoginRequiredMixin, DetailView):
+    '''view to unlike a post'''
+    model = Post
+    context_object_name = 'post' # should be singular
+
+    template_name = 'mini_insta/show_post.html'
+    def dispatch(self, request, *args, **kwargs):
+        '''view to unlike a post'''
+        liker = self.get_profile()
+        liked_post = Post.objects.get(pk=self.kwargs['pk'])
+        Like.objects.filter(profile=liker,  post=liked_post).delete()
+        return super().dispatch(request, *args, **kwargs)
+
+    
+
+    def get_context_data(self, **kwargs):
+        '''get context data for the post detail view'''
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        if self.request.user.is_authenticated:
+            user_profile = self.get_profile()
+            context['already_liked'] = Like.objects.filter(profile=user_profile, post=post).exists()
+        else:
+            context['already_liked'] = False
+
+        return context

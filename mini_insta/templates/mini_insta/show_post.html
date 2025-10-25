@@ -10,6 +10,18 @@
 {% block content %}
 
 <h1> Post by {{post.profile.username}}</h1>
+{% if request.user.is_authenticated and request.user != post.profile.user %}
+    {% if already_liked %}
+        <a href="{% url 'unlike_post' post.pk %}" class="btn">
+            Unlike
+        </a>
+        {% else %}
+        <a href="{% url 'like_post' post.pk %}" class="btn">
+            Like
+        </a>
+        {% endif %}
+{% endif %}
+
 <main class="grid-container">
     <article>
         <div>
