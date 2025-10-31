@@ -1,0 +1,113 @@
+<!-- voter_analytics/templates/voter_analytics/search.html -->
+ <!-- search.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 10/31/2025
+    html file for the search template of the voter_analytics project
+ 
+-->
+ 
+ 
+<table>
+    <h1>Search Form</h1>
+
+    
+<form action="{% url form_action %}" method="get">
+    {% csrf_token %}
+    <tr>
+        <th>Party Affiliation:</th>
+        <td>
+            <select name = "party_affiliation" id="party_affiliation">
+                <option value="">--Select Party--</option>
+                <option value="U "{% if request.GET.party_affiliation == "U " %}selected{% endif %}>U</option>
+                <option value="D "{% if request.GET.party_affiliation == "D " %}selected{% endif %}>D</option>
+                <option value="R "{% if request.GET.party_affiliation == "R " %}selected{% endif %}>R</option>
+                <option value="J "{% if request.GET.party_affiliation == "J " %}selected{% endif %}>J</option>
+                <option value="A "{% if request.GET.party_affiliation == "A " %}selected{% endif %}>A</option>
+                <option value="CC"{% if request.GET.party_affiliation == "CC" %}selected{% endif %}>CC</option>
+                <option value="X "{% if request.GET.party_affiliation == "X " %}selected{% endif %}>X</option>
+                <option value="L "{% if request.GET.party_affiliation == "L " %}selected{% endif %}>L</option>
+                <option value="Q "{% if request.GET.party_affiliation == "Q " %}selected{% endif %}>Q</option>
+                <option value="S "{% if request.GET.party_affiliation == "S " %}selected{% endif %}>S</option>
+                <option value="FF"{% if request.GET.party_affiliation == "FF" %}selected{% endif %}>FF</option>
+                <option value="G "{% if request.GET.party_affiliation == "G " %}selected{% endif %}>G</option>
+                <option value="HH"{% if request.GET.party_affiliation == "HH" %}selected{% endif %}>HH</option>
+                <option value="T "{% if request.GET.party_affiliation == "T " %}selected{% endif %}>T</option>
+                <option value="AA"{% if request.GET.party_affiliation == "AA" %}selected{% endif %}>AA</option>
+                <option value="GG"{% if request.GET.party_affiliation == "GG" %}selected{% endif %}>GG</option>
+                <option value="Z "{% if request.GET.party_affiliation == "Z " %}selected{% endif %}>Z</option>
+                <option value="O "{% if request.GET.party_affiliation == "O " %}selected{% endif %}>O</option>
+                <option value="P "{% if request.GET.party_affiliation == "P " %}selected{% endif %}>P</option>
+                <option value="E "{% if request.GET.party_affiliation == "E " %}selected{% endif %}>E</option>
+                <option value="V "{% if request.GET.party_affiliation == "V " %}selected{% endif %}>V</option>
+                <option value="H "{% if request.GET.party_affiliation == "H " %}selected{% endif %}>H</option>
+                <option value="Y "{% if request.GET.party_affiliation == "Y " %}selected{% endif %}>Y</option>
+                <option value="W "{% if request.GET.party_affiliation == "W " %}selected{% endif %}>W</option>
+                <option value="EE"{% if request.GET.party_affiliation == "EE" %}selected{% endif %}>EE</option>
+                <option value="K "{% if request.GET.party_affiliation == "K " %}selected{% endif %}>K</option>
+             </select>
+        </td>
+    </tr>
+    
+    <tr>
+        <th>Voter Score:</th>
+        <td>
+            <select name = "voter_score" id="voter_score">
+                <option value="">--Select Voter Score--</option>
+                <option value="0"{% if request.GET.voter_score == "0" %}selected{% endif %}>0</option>
+                <option value="1"{% if request.GET.voter_score == "1" %}selected{% endif %}>1</option>
+                <option value="2"{% if request.GET.voter_score == "2" %}selected{% endif %}>2</option>
+                <option value="3"{% if request.GET.voter_score == "3" %}selected{% endif %}>3</option>
+                <option value="4"{% if request.GET.voter_score == "4" %}selected{% endif %}>4</option>
+                <option value="5"{% if request.GET.voter_score == "5" %}selected{% endif %}>5</option>
+             </select>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Minimum Year of Birth</th>
+        <td>
+            <select name="min_year" id="min_year">
+                <option value="">--Select Year--</option>
+                {% for y in years %}
+                    <option value="{{ y }}"{% if request.GET.min_year == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+                {% endfor %}
+            </select>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Maximum Year of Birth</th>
+        <td>
+            <select name="max_year" id="max_year">
+                <option value="">--Select Year--</option>
+                {% for y in years %}
+                    <option value="{{ y }}"{% if request.GET.max_year == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+                {% endfor %}
+            </select>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Previous Election Participation</th>
+        <td>
+            <input type ="checkbox" id = "v20state"name="v20state" value="v20state"{% if request.GET.v20state %}checked{% endif %}>
+            <label for="v20state">2020 State Election</label><br>
+            <input type ="checkbox" id = "v21town"name="v21town" value="v21town"{% if request.GET.v21town %}checked{% endif %}>
+            <label for="v21town">2021 Town Election</label><br>
+            <input type ="checkbox" id = "v21primary"name="v21primary" value="v21primary"{% if request.GET.v21primary %}checked{% endif %}>
+            <label for="v21primary">2021 Primary Election</label><br>
+            <input type ="checkbox" id = "v22general"name="v22general" value="v22general"{% if request.GET.v22general %}checked{% endif %}>
+            <label for="v22general">2022 General Election</label><br>
+            <input type ="checkbox" id = "v23town"name="v23town" value="v23town"{% if request.GET.v23town %}checked{% endif %}>
+            <label for="v23town">2023 Town Election</label><br>
+        </td>
+    </tr>
+    
+    <tr>
+        <td><input type="submit"></td>
+        <td></td>
+    </tr>
+    
+</form>
+</table>

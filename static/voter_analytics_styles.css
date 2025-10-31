@@ -1,0 +1,195 @@
+/* ===== Global Styles ===== */
+body {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h3 {
+    color: #2b2d42;
+}
+
+a {
+    color: #0077cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Header & Navigation ===== */
+header {
+    background-color: #2b2d42;
+    color: #fff;
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    color: #fff;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+nav ul li a:hover {
+    background-color: #4a4e69;
+}
+
+/* ===== Containers and Layout ===== */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px 30px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.row {
+    margin-bottom: 20px;
+}
+
+/* ===== Search Form ===== */
+form {
+    margin-bottom: 30px;
+}
+
+form table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+form th {
+    text-align: left;
+    padding: 8px 5px;
+    vertical-align: top;
+    width: 25%;
+    color: #444;
+}
+
+form td {
+    padding: 8px 5px;
+}
+
+form select,
+form input[type="text"],
+form input[type="number"] {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.95em;
+}
+
+form input[type="submit"] {
+    background-color: #2b2d42;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+form input[type="submit"]:hover {
+    background-color: #414770;
+}
+
+/* ===== Table Styles ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #dee2e6;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #edf2f4;
+    color: #333;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* ===== Pagination ===== */
+.pagination {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    padding: 0;
+    margin: 15px 0;
+    gap: 10px;
+}
+
+.pagination li {
+    display: inline-block;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #edf2f4;
+    color: #0077cc;
+    border-radius: 4px;
+}
+
+.pagination a:hover {
+    background-color: #dce2e9;
+}
+
+/* ===== Checkbox Section ===== */
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+label {
+    font-size: 0.95em;
+    color: #333;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    form table,
+    table {
+        font-size: 0.9em;
+    }
+
+    form th {
+        width: 40%;
+    }
+}

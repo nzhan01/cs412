@@ -1,0 +1,67 @@
+
+
+<!-- templates/voter_analytics/graphs.html -->
+ <!-- graphs.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 10/31/2025
+    html file for the graphs template of the voter_analytics project
+ 
+-->
+ 
+{% extends 'voter_analytics/base.html' %}
+ 
+ 
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% include "voter_analytics/search.html" %}    
+    </div>
+</div>
+<div class="container">
+    <h1>Graphs</h1>
+    {% if result_count > 0 %}
+    <h3>{{result_count}} Entries Match</h3>
+    {% else %}
+        <h3>No results match your criteria.</h3>
+    {% endif %}
+</div>
+
+<div class="container">
+    
+    <!-- # show the pie chart here: -->
+    <div class="container">
+        <div class="row">
+            <!-- safe: render the HTML rather than display the HTML as text -->
+            {{graph_div_dob_year|safe}} 
+        </div>
+    </div>
+       
+</div>
+
+
+<div class="container">
+    <!-- # show the pie chart here: -->
+    <div class="container">
+        <div class="row">
+            <!-- safe: render the HTML rather than display the HTML as text -->
+            {{graph_div_voter_distribution|safe}} 
+        </div>
+    </div>
+       
+</div>
+
+<div class="container">
+    <!-- # show the pie chart here: -->
+    <div class="container">
+        <div class="row">
+            <!-- safe: render the HTML rather than display the HTML as text -->
+            {{graph_div_election_participation|safe}} 
+        </div>
+    </div>
+       
+</div>
+ 
+ 
+{% endblock %}
+

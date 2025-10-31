@@ -1,3 +1,9 @@
+# file: voter_analytics/models.py
+# Nicholas Zhang
+# nzhan01@bu.edu
+# created: 10/31/2025
+# models file containing all the models for the voter_analytics app
+
 from django.db import models
 
 # Create your models here.
@@ -19,7 +25,6 @@ class Voter(models.Model):
     v21primary = models.BooleanField()
     v22general = models.BooleanField()
     v23town = models.BooleanField()
-
     voter_score = models.IntegerField() #A score assigned to each voter based on how many elections they voted in.
 
     def __str__(self):
