@@ -1,0 +1,12 @@
+
+{% extends "dadjokes/base.html" %}
+
+{% block content %}
+
+
+<h1> Here's a Dad Joke for You!</h1>
+
+<p> {{joke.name }}</p>
+<p> {{joke.text}} </p>
+<img src="{{picture.image_url}}" alt="{{picture.name}}"/>
+{%endblock %}

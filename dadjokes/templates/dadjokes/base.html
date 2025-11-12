@@ -1,0 +1,30 @@
+<!-- dadjokes/templates/dadjokes/base.html -->
+ <!-- base.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 11/10/2025
+    html file for the base template of the dadjokes project
+ 
+-->
+{% load static %}
+<html>
+    <head>
+        <title>Dad Jokes</title>
+        <link rel="stylesheet" href="{% static 'styles-marathon-analytics.css' %}">
+    </head>
+    <body>
+        <header>
+            <h1>Dad Jokes!</h1>
+            <nav>
+                
+ 
+            </nav>
+        </header>
+    <main>
+        {% block content %}
+        {% endblock %}  
+    </main>
+      
+  
+    </body>
+</html>

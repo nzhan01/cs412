@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'mini_insta',
     'marathon_analytics',
     'voter_analytics',
+    'dadjokes',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -149,3 +151,9 @@ CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
 if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
     STATIC_URL = '/nzhan01/static/'
     MEDIA_URL = '/nzhan01/media/'
+
+
+REST_FRAMEWORK = {
+  'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+  'PAGE_SIZE': 10
+}

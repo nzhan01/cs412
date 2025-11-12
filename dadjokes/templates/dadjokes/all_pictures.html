@@ -1,0 +1,15 @@
+
+{% extends "dadjokes/base.html" %}
+
+{% block content %}
+<h1> Here's Some  Pictures for You!</h1>
+
+{%for picture in pictures%}
+
+<p> {{picture.name }}</p>
+<img src="{{picture.image_url}}" alt="{{picture.name}}"/>
+<p> {{picture.timestamp }}</p>
+<hr/>
+{%endfor %}
+
+{%endblock %}

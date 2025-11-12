@@ -1,0 +1,14 @@
+
+{% extends "dadjokes/base.html" %}
+
+{% block content %}
+<h1> Here's some Dad Joke for You!</h1>
+
+{% for joke in jokes%}
+<p> {{joke.name }}</p>
+<p> {{joke.text}} </p>
+<p> {{joke.timestamp }}</p>
+<hr/>
+{% endfor %}
+
+{%endblock %}
