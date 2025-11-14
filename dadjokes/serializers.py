@@ -1,4 +1,9 @@
 #dadjokes/serializers.py
+# Nicholas Zhang
+# nzhan01@bu.edu
+# created: 11/10/2025
+# models file containing all the serializers for the dadjokes app
+ 
 # convert django data models to a text-representation such as JSON or XML that can be sent over http
 from rest_framework import serializers
 from .models import *

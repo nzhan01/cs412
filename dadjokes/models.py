@@ -1,3 +1,10 @@
+# dadjokes/models.py
+# Nicholas Zhang
+# nzhan01@bu.edu
+# created: 11/10/2025
+# models file containing all the models for the dadjokes app
+ 
+
 from django.db import models
 
 # Create your models here.
