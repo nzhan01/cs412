@@ -79,16 +79,19 @@ class PictureDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PictureSerializer
 
 class RandomJokeAPIView(generics.RetrieveAPIView):
-    '''API view to retrieve a random joke and picture'''
+    '''API view to retrieve a random  joke'''
     
 
     def get(self, request, *args, **kwargs):
         joke = random.choice(Joke.objects.all())
-        picture = random.choice(Picture.objects.all())
         joke_data = JokeSerializer(joke).data
+        return Response(joke_data)
+    
+class RandomPictureAPIView(generics.RetrieveAPIView):
+    '''API view to retrieve a random picture'''
+
+    def get(self, request, *args, **kwargs):
+        picture = random.choice(Picture.objects.all())
         picture_data = PictureSerializer(picture).data
-        combined_data = {
-            'joke': joke_data,
-            'picture': picture_data
-        }
-        return Response(combined_data)
+        
+        return Response(picture_data)

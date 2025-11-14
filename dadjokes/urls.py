@@ -23,6 +23,7 @@ urlpatterns = [
     path('api/joke/<int:pk>/', JokeDetailAPIView.as_view(), name='joke_detail_api'),
     path('api/picture/<int:pk>/', PictureDetailAPIView.as_view(), name='picture_detail_api'),
     path('api/random/', RandomJokeAPIView.as_view(), name='random_joke_api'),
+    path('api/random_picture/', RandomPictureAPIView.as_view(), name='random_picture_api'),
     path('api/', RandomJokeAPIView.as_view(), name='random_joke_api'),
 
 
