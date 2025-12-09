@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'marathon_analytics',
     'voter_analytics',
     'dadjokes',
-    'rest_framework',
+    # 'rest_framework',
     'project',
 
     'django.contrib.sites', 
