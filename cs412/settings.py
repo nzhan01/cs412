@@ -12,11 +12,21 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-from decouple import config
+#from decouple import config
+
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env_path = os.path.join(BASE_DIR, ".env")
+if os.path.exists(env_path):
+    with open(env_path) as f:
+        for line in f:
+            if line.strip() and not line.startswith("#"):
+                key, value = line.strip().split("=", 1)
+                os.environ[key] = value
 
 
 # Quick-start development settings - unsuitable for production
@@ -71,8 +81,8 @@ AUTHENTICATION_BACKENDS = [
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "APP": {
-            "client_id": config("GOOGLE_CLIENT_ID"),
-            "secret": config("GOOGLE_CLIENT_SECRET"),
+            "client_id": os.environ.get("GOOGLE_CLIENT_ID"),
+            "secret": os.environ.get("GOOGLE_CLIENT_SECRET"),
             "key": ""
         },
         "SCOPE": ["profile", "email"],
