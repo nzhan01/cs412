@@ -6,35 +6,46 @@
     html file for the course_list template of the final project
  
 -->
+    
 {% extends "project/base.html" %}
 
 {% block content %}
 
-<h1> Welcome to the Course Management System</h1>
+<div class="home-header">
+    <h1>Welcome to the Course Management System</h1>
+</div>
 
-
-<main class="grid-container">
+<main class="home-container">
 
     {% if user.is_authenticated %}
-    <article>
-        <div>
-            
-            <h2>Hello {{user.email}}</h2>
+        <section class="home-card">
+            <h2>Hello, {{ user.email }}</h2>
 
-            <h2>
+            <h3>Create Room Request</h3>
+            <a href="{% url 'create_room_request' %}" class="action-link">
                 Create Room Request
-            </h2>
-            <div>
-                <a href="{% url 'create_room_request' %}"> Create Room Request</a>
-            </div>
-         
-         
-         
-    </article>
-
+            </a>
+        </section>
     {% else %}
-    <h2> no user logged in</h2>
-
+        <section class="home-card">
+            <h2>No user logged in</h2>
+            <p>Please log in to access the system features.</p>
+        </section>
     {% endif %}
-         
+
+    <section class="home-card">
+        <h2>How to Use the Course Scheduler</h2>
+        <p>
+            This Course Management System allows users to create and manage courses, sections, rooms, and room requests. 
+            To get started, create an account or log in if you already have one. Once logged in, you can create new courses via the "Create Course" page. 
+            After creating a course, add sections by providing details such as section code and professor name. 
+            You can also create rooms by specifying the building and room number.
+            <br><br>
+            To schedule a Class Meeting for a specific time slot, submit a room request, which will be processed based on availability. 
+            Use the navigation links to explore different functionalities and manage your courses and rooms effectively.
+        </p>
+    </section>
+
+</main>
+
 {% endblock %}

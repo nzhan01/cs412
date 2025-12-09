@@ -1,0 +1,17 @@
+
+{% extends "project/base.html" %}
+
+{% block content %}
+<div class="centered-form">
+    <h1>Create Course Section for {{course.code}}</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-primary">Create Section</button>
+    </form>
+</div>
+
+
+
+{% endblock %}

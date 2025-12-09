@@ -7,25 +7,24 @@
     html file for the course_list template of the final project
  
 -->
-{% extends "project/base.html" %}
+    {% extends "project/base.html" %}
 
 {% block content %}
 
-<h1> Showing all Courses</h1>
 
-<main class="grid-container">
+<div class="list-header">
+    <h1>Showing All Courses</h1>
+    <a href="{% url 'create_course' %}" class="create-link">
+        Create Course
+    </a>
+</div>
+
+<div class="card-grid">
     {% for course in courses %}
-
-    <article>
-        <div>
-            <a href = "{% url 'show_course' course.pk %}"> 
-                <h2> {{course.code}} {{course.name}}</h2>
-            </a>
-            
-            
-            
-    </article>
-    
+        <a href="{% url 'show_course' course.pk %}" class="card">
+            <h2 class="card-title">{{ course.code }} {{ course.name }}</h2>
+        </a>
     {% endfor %}
-</main>
+</div>
+
 {% endblock %}

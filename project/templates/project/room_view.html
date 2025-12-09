@@ -1,0 +1,43 @@
+
+
+<!-- show_all_profiles.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 12/2/2025
+    html file for the course_list template of the final project
+ 
+-->
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<div class="detail-header">
+    <a class="back-link" href="{% url 'room_list' %}">← Back</a>
+    <h1>{{ room.building }} {{ room.room_number }}</h1>
+</div>
+
+<div class="detail-card">
+
+    <h2>Type: {{ room.room_type }}</h2>
+    <h3>Capacity: {{ room.capacity }}</h3>
+
+    <h3 class="subheader">Meetings</h3>
+
+    {% for meeting in meetings %}
+        <div class="detail-list-item">
+
+            <a href="{% url 'show_meeting' meeting.pk %}">
+                Section {{ meeting.course_section.section_code }} — {{ meeting.professor }}
+            </a>
+
+            <p>
+                {{ meeting.day_of_week }}  
+                {{ meeting.start_time }} - {{ meeting.end_time }}
+            </p>
+        </div>
+    {% empty %}
+        <p>No meetings scheduled.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

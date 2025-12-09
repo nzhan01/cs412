@@ -6,22 +6,43 @@
     html file for the show_profile template of the mini insta project
  
 -->
+
 {% extends "project/base.html" %}
 
 {% block content %}
 
-{% if request.user.is_authenticated and request.user == professor.user %}
-<h1> Hello {{professor.Firstname}}</h1>
-{% else %}
-<h1> Professor Details</h1>
-{% endif %}
+<div class="detail-header">
+    <span></span>  
+    {% if request.user.is_authenticated and request.user == professor.user %}
+        <h1>Hello {{ professor.Firstname }}</h1>
+    {% else %}
+        <h1>Professor Details</h1>
+    {% endif %}
+    <span></span>
+</div>
 
+<div class="detail-card">
 
-<main class="grid-container">
+    <a href="{% url 'update_professor' professor.pk %}" class="action-link">
+        Update Profile
+    </a>
 
-    <h2> Name: {{professor.Firstname}} {{professor.Lastname}} </h2>
-    <h2> Email: {{professor.email}} </h2>
-    <h2> Department: {{professor.department}} </h2>
-    <h2> Availability: {{professor.availability}}</h2>
-</main>
+    <h2>Name: {{ professor.Firstname }} {{ professor.Lastname }}</h2>
+    <h2>Email: {{ professor.email }}</h2>
+    <h2>Department: {{ professor.department }}</h2>
+    <h2>Availability: {{ professor.availability }}</h2>
+
+    <h3 class="subheader">Course Sections</h3>
+
+    {% for section in sections %}
+        <div class="detail-list-item">
+            <a href="{% url 'show_section' section.pk %}">
+                {{ section.course.code }} {{ section.course.name }} — Section {{ section.section_code }}
+            </a>
+        </div>
+    {% empty %}
+        <p>No course sections yet.</p>
+    {% endfor %}
+</div>
+
 {% endblock %}

@@ -6,36 +6,37 @@
     created: 12/2/2025
     html file for the course_list template of the final project
  
--->
-{% extends "project/base.html" %}
+-->{% extends "project/base.html" %}
 
 {% block content %}
 
-<a href="{% url 'course_list' %}"> Back to Course List Page</a>
-<h1> {{course.name}}</h1>
+<div class="detail-header">
+    <a class="back-link" href="{% url 'course_list' %}">← Back</a>
+    <h1>{{ course.name }}</h1>
+</div>
 
-<main class="grid-container">
+<div class="detail-card">
 
-    <article>
-        <div>
-            <h2> {{course.name}}</h2>
-            <h3> {{course.code}}</h3>
-            <h3>Description</h3>
-            <p>
-                {{course.description}}
-            </p>
+    <h2>{{ course.code }}</h2>
+
+    <h3>Description</h3>
+    <p>{{ course.description }}</p>
+
+    <a href="{% url 'create_section' course.pk %}" class="action-link">
+        Create Section
+    </a>
+
+    <h3 class="subheader">Sections</h3>
+
+    {% for section in sections %}
+        <div class="detail-list-item">
+            <a href="{% url 'show_section' section.pk %}">
+                Section {{ section.section_code }} — {{ section.professor }}
+            </a>
         </div>
-            <h3> Sections:</h3>
-            {%for section in sections %}
-                <a href="{% url 'show_section' section.pk %} ">
-                    <p>
-                        Section {{section.section_code}}: {{section.professor}} <br>
-                        
-                    </p>
-                    </a>
-                
-            {% endfor %}
-    </article>
+    {% empty %}
+        <p>No sections yet.</p>
+    {% endfor %}
+</div>
 
-</main>
 {% endblock %}

@@ -11,20 +11,32 @@
 
 {% block content %}
 
-<a href="{% url 'show_course' class_meeting.course_section.course.pk %}"> Back to Course Page</a>
-<h1> {{class_meeting.course_section.course.name}} {{class_meeting.course_section.course.code}}</h1>
-<h2>{{class_meeting.professor.Firstname}} {{class_meeting.professor.Lastname}}</h2>
+<div class="detail-header">
+    <a class="back-link"
+       href="{% url 'show_course' class_meeting.course_section.course.pk %}">
+       ← Back
+    </a>
+    <h1>{{ class_meeting.course_section.course.code }} {{ class_meeting.course_section.course.name }}</h1>
+</div>
 
-<main class="grid-container">
+<div class="detail-card">
 
-    <article>
-        <div>
-            <h2>Room:{{class_meeting.room.building}} {{class_meeting.room.room_number}}</h2>
-            <h2> Size: {{class_meeting.size}}</h2>
-            <h3> Meeting Time:{{class_meeting.day_of_week}} {{class_meeting.start_time}} - {{class_meeting.end_time}}</h3>
-        </div>
-            
-    </article>
+    <h2>
+        {{ class_meeting.professor.Firstname }} {{ class_meeting.professor.Lastname }}
+    </h2>
 
-</main>
+    
+    <h3 class="subheader">Room</h3>
+    <p>{{ class_meeting.room.building }} {{ class_meeting.room.room_number }}</p>
+
+    <h3 class="subheader">Class Size</h3>
+    <p>{{ class_meeting.size }}</p>
+
+    <h3 class="subheader">Meeting Time</h3>
+    <p>{{ class_meeting.day_of_week }} — {{ class_meeting.start_time }} to {{ class_meeting.end_time }}</p>
+    <a href="{% url 'delete_meeting' class_meeting.pk %}" class="d-action-link">
+        Delete Meeting
+    </a>
+</div>
+
 {% endblock %}

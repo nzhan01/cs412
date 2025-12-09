@@ -7,24 +7,57 @@
     html file for the assignment_feed template of the final project
  
 -->
+
 {% extends "project/base.html" %}
 
 {% block content %}
 
-<h1> Showing all assignments</h1>
 
-<main class="grid-container">
-    {% for roomrequest in roomrequests %}
+<div class="table-container">
+    <h1>Showing All Assignments</h1>
+    <table class="request-table">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Course Section</th>
+                <th>Room</th>
+                <th>Professor</th>
+                <th>Day</th>
+                <th>Time</th>
+                <th>Size</th>
+                <th>Status</th>
+            </tr>
+        </thead>
 
-    <div>
-             
-        <h2> Request for {{roomrequest.course_section}} in {{roomrequest.room.building}} {{roomrequest.room.room_number}} with {{roomrequest.professor.Lastname}} on {{roomrequest.day_of_week}} from {{roomrequest.start_time}} to {{roomrequest.end_time}} - Status: {{roomrequest.status}}</h2>
-     </div>  
-            
-            
-            
-   
-    
-    {% endfor %}
-</main>
+        <tbody>
+            {% for r in roomrequests %}
+            <tr>
+                <td>{{ r.timestamp }}</td>
+                <td>{{ r.course_section }}</td>
+                <td>{{ r.room.building }} {{ r.room.room_number }}</td>
+                <td>{{ r.professor.Lastname }}</td>
+                <td>{{ r.day_of_week }}</td>
+                <td>{{ r.start_time }} - {{ r.end_time }}</td>
+                <td>{{ r.size }}</td>
+                <td>
+                    <span class="status-badge {{ r.status|lower }}">
+                        {% if r.status == "Approved" %}
+                            <a href="{% url 'show_meeting' r.pk %} ">
+                            {{ r.status }}
+                            </a>
+                        {% elif r.status == "Denied" %}
+                        <a href="{% url 'request_denied' r.pk %} ">
+                            {{ r.status }}
+                            </a>
+                        {% else %}
+                        {{ r.status }}
+                        {% endif %}
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {% endblock %}

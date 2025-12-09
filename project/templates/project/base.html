@@ -11,7 +11,7 @@
 <html>
     <head>
         <title> Class Scheduler</title>
-        <link rel="stylesheet" href="{% static 'voter_analytics_styles.css' %}">
+        <link rel="stylesheet" href="{% static 'project_styles.css' %}">
     </head>
     <body>
         <header>
@@ -29,11 +29,12 @@
                     <li>
                         logged in as: {{ request.user.email }}
                     </li>
-                    <li>
+                    <li class="nav-logout">
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
                             <button type="submit"> Logout</button>
                         </form>
+                    </li>
                     {% else %}
                     <li><a href="{% url 'create_professor' %}">Create Account</a></li>
                     <li><a href="{% url 'login' %}"> Login</a></li>

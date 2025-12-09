@@ -7,25 +7,20 @@
     html file for the course_list template of the final project
  
 -->
+
 {% extends "project/base.html" %}
 
 {% block content %}
+<div class="list-header">
+    <h1>Showing All Professors</h1>
+</div>
 
-<h1> Showing all professors</h1>
-
-<main class="grid-container">
+<div class="card-grid">
     {% for professor in professors %}
-
-    <article>
-        <div>
-            <a href = "{% url 'show_professor' professor.pk %}"> 
-                <h2> {{professor.Firstname}} {{professor.Lastname}}</h2>
-            </a>
-            
-            
-            
-    </article>
-    
+        <a href="{% url 'show_professor' professor.pk %}" class="card">
+            <h2 class="card-title">{{ professor.Firstname }} {{ professor.Lastname }}</h2>
+        </a>
     {% endfor %}
-</main>
+</div>
+
 {% endblock %}

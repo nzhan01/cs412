@@ -7,25 +7,26 @@
     html file for the course_list template of the final project
  
 -->
+
 {% extends "project/base.html" %}
 
 {% block content %}
 
-<h1> Showing all Rooms</h1>
 
-<main class="grid-container">
+
+<div class="list-header">
+    <h1>Showing All Rooms</h1>
+    <a  href="{% url 'create_room' %}" class="create-link">
+        Create Room
+    </a>
+</div>
+
+<div class="card-grid">
     {% for room in rooms %}
-
-    <article>
-        <div>
-        
-                <h2> {{room.building}} {{room.room_number}}</h2>
-        </div>
-            
-            
-            
-    </article>
-    
+        <a href="{% url 'show_room' room.pk %}" class="card">
+            <h2 class="card-title">{{ room.building }} {{ room.room_number }}</h2>
+        </a>
     {% endfor %}
-</main>
+</div>
+
 {% endblock %}

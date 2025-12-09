@@ -11,15 +11,17 @@
 {% load socialaccount %}
  
 {% block content %}
- 
-
-<h1>Sign In</h1>
+<div class="centered-form">
+    <h1>Sign In</h1>
 
     <!-- Google Login Button -->
     <a href="{% provider_login_url 'google' %}?next={% url 'course_list' %}">
-        <button>Sign in with Google</button>
+        <button class="btn-primary">Sign in with Google</button>
     </a>
-<hr>
+    </div>
+
+
+
 {% endblock %}
 
 

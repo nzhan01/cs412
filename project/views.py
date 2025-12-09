@@ -52,7 +52,19 @@ class RoomRequestCreateView(LoginRequiredMixin, CreateView):
         request_obj: RoomRequest = form.save(commit=False)
         request_obj.professor = self.request.user.professor
 
-        # Get all existing ClassMeetings in that room on the same day
+        #check for capacity constraint
+
+        if request_obj.size > request_obj.room.capacity:
+            request_obj.status = "Denied"
+            request_obj.denial_reason = (
+                f"Requested room capacity of {request_obj.room.capacity} is less than class size of {request_obj.size}."
+            )
+            request_obj.save()
+
+            return redirect(reverse("request_denied", kwargs={'pk': request_obj.id}))
+        
+
+        # Else, Get all existing ClassMeetings in that room on the same day
         same_day_meetings = ClassMeeting.objects.filter(
             room=request_obj.room,
             day_of_week=request_obj.day_of_week,
@@ -192,7 +204,86 @@ class ProfessorDetailView( DetailView):
     context_object_name = 'professor'
 
     def get_context_data(self, **kwargs):
+        '''retrieve all course sections that this professor teaches'''
         context = super().get_context_data(**kwargs)
 
-        
+        context['sections'] = CourseSection.objects.filter(professor=self.object)
         return context
+    
+class UpdateProfessorView( UpdateView):
+    '''View to update professor info'''
+    model = Professor
+    form_class = UpdateProfessorForm
+    template_name = 'project/update_professor.html'
+
+    def get_success_url(self):
+        return reverse('show_professor', kwargs={'pk': self.object.pk})
+    
+
+
+class CreateCourseView(CreateView):
+    '''view to create a new class '''
+    model = Course
+    form_class= CourseForm
+    template_name= 'project/create_course.html'
+
+    def get_success_url(self):
+        return reverse('show_course', kwargs={'pk': self.object.pk})
+
+class RoomDetailView(DetailView):
+    ''' View to see room info'''
+    model = Room
+    template_name = 'project/room_view.html'
+    context_object_name = 'room'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['meetings'] = Room.get_meetings(self.object)
+        return context
+    
+class CreateRoomView(CreateView):
+    '''view to create a new room '''
+    model = Room
+    form_class= RoomForm
+    template_name= 'project/create_room.html'
+
+    def get_success_url(self):
+        return reverse('show_room', kwargs={'pk': self.object.pk})
+    
+
+class CreateCourseSectionView(CreateView):
+    '''view to create a new class section '''
+    model = CourseSection
+    form_class= CourseSectionForm
+    template_name= 'project/create_course_section.html'
+
+    def get_form(self, *args, **kwargs):
+        """Filter the form so only the specificed course are shown."""
+        form = super().get_form(*args, **kwargs)
+        course_id = self.kwargs.get('pk')
+        form.fields['course'].queryset = Course.objects.filter(id=course_id)
+        return form
+        
+    def get_context_data(self, **kwargs):
+        course_id = self.kwargs.get('pk')
+        context = super().get_context_data(**kwargs)
+        context['course'] = Course.objects.get(id=course_id)
+        return context
+    
+
+    def get_success_url(self):
+        return reverse('show_section', kwargs={'pk': self.object.pk})
+    
+
+class DeleteClassMeetingView(DeleteView):
+    '''view to delete a class meeting'''
+    model = ClassMeeting
+    template_name = 'project/delete_class_meeting.html'
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['class_meeting'] = self.object
+        return context
+    
+    def get_success_url(self):
+        return reverse('show_section', kwargs={'pk': self.object.course_section.pk})

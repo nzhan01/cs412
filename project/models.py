@@ -55,6 +55,10 @@ class Room(models.Model):
     def __str__(self):
         '''return a string representation of the Room'''
         return f'{self.building} {self.room_number}'
+    
+    def get_meetings(self):
+        '''return all class meetings for this room'''
+        return ClassMeeting.objects.filter(room=self)
 
 class CourseSection(models.Model):
     '''model for course section information'''
@@ -81,7 +85,7 @@ class ClassMeeting(models.Model):
     day_of_week = models.CharField(max_length=20, choices=DAY_CHOICES)
     start_time = models.TimeField()
     end_time = models.TimeField()
-    request = models.ForeignKey('RoomRequest', null=True, blank=True, on_delete=models.SET_NULL)
+    request = models.ForeignKey('RoomRequest', null=True, blank=True, on_delete=models.CASCADE)
 
 
     def __str__(self):

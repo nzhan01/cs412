@@ -11,31 +11,30 @@
 
 {% block content %}
 
-<a href="{% url 'course_list' %}"> Back to Course List Page</a>
-<h1> {{course_section.course.code}} {{course_section.course.name}}</h1>
+<div class="detail-header">
+    <a class="back-link" href="{% url 'show_course' course_section.course.pk %}">← Back</a>
+    <h1>{{ course_section.course.code }} {{ course_section.course.name }}</h1>
+</div>
 
-<main class="grid-container">
+<div class="detail-card">
 
-    <article>
-        <div>
-           
-            <h3> Section: {{course_section.section_code}}</h3>
-            <h3>Description</h3>
-            <p>
-                {{course_section.course.description}}
-            </p>
+    <h2>Section {{ course_section.section_code }}</h2>
+
+    <h3 class="subheader">Description</h3>
+    <p>{{ course_section.course.description }}</p>
+
+    <h3 class="subheader">Meetings</h3>
+
+    {% for meeting in meetings %}
+        <div class="detail-list-item">
+            <a href="{% url 'show_meeting' meeting.pk %}">
+                {{ meeting.day_of_week }} — {{ meeting.start_time }} to {{ meeting.end_time }}
+            </a>
         </div>
-            <h3> Sections:</h3>
-            {%for meeting in meetings %}
-                <a href="{% url 'show_meeting' meeting.pk %} ">
-                    <p>
-                        Section {{meeting.day_of_week}}: {{meeting.start_time}} - {{meeting.end_time}}  <br>
-                        
-                    </p>
-                    </a>
-                
-            {% endfor %}
-    </article>
+    {% empty %}
+        <p>No meetings scheduled.</p>
+    {% endfor %}
 
-</main>
+</div>
+
 {% endblock %}
