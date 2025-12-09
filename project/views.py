@@ -43,7 +43,7 @@ class CreateProfessorView( CreateView):
     def get_success_url(self):
         return reverse('show_professor', kwargs={'pk': self.object.pk})
     
-class RoomRequestCreateView(LoginRequiredMixin, CreateView):
+class RoomRequestCreateView( CreateView):
     '''View to create a new room request'''
     model = RoomRequest
     form_class = RoomRequestForm

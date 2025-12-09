@@ -17,21 +17,21 @@
 
 <main class="home-container">
 
-    {% if user.is_authenticated %}
+    
         <section class="home-card">
-            <h2>Hello, {{ user.email }}</h2>
+            <h2>Hello, </h2>
 
             <h3>Create Room Request</h3>
             <a href="{% url 'create_room_request' %}" class="action-link">
                 Create Room Request
             </a>
         </section>
-    {% else %}
+    
         <section class="home-card">
             <h2>No user logged in</h2>
             <p>Please log in to access the system features.</p>
         </section>
-    {% endif %}
+    
 
     <section class="home-card">
         <h2>How to Use the Course Scheduler</h2>

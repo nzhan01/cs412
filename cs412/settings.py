@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-#from decouple import config
 
 
 
@@ -20,14 +19,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load environment variables from a .env file if it exists
-env_path = os.path.join(BASE_DIR, ".env")
-if os.path.exists(env_path):
-    with open(env_path) as f:
-        for line in f:
-            if line.strip() and not line.startswith("#"):
-                key, value = line.strip().split("=", 1)
-                os.environ[key] = value
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -61,35 +53,21 @@ INSTALLED_APPS = [
     'marathon_analytics',
     'voter_analytics',
     'dadjokes',
-    # 'rest_framework',
+    'rest_framework',
     'project',
 
     'django.contrib.sites', 
-    # allauth
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    
 ]
 
-SITE_ID = 1
+
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # keep Django default
-    'allauth.account.auth_backends.AuthenticationBackend',
+    
 ]
 
-SOCIALACCOUNT_PROVIDERS = {
-    "google": {
-        "APP": {
-            "client_id": os.environ.get("GOOGLE_CLIENT_ID"),
-            "secret": os.environ.get("GOOGLE_CLIENT_SECRET"),
-            "key": ""
-        },
-        "SCOPE": ["profile", "email"],
-        "AUTH_PARAMS": {"access_type": "offline"},
-    }
-}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -111,16 +89,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    # REQUIRED by django-allauth (new requirement)
-    'allauth.account.middleware.AccountMiddleware',
+    
 ]
 
 
 
-# Auto-create users after Google login
-SOCIALACCOUNT_AUTO_SIGNUP = True
-
-SOCIALACCOUNT_ADAPTER = "project.adapters.MySocialAccountAdapter"
 
 
 

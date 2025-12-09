@@ -31,7 +31,6 @@ urlpatterns = [
     path('voter_analytics/', include('voter_analytics.urls')),
     path('dadjokes/', include('dadjokes.urls')),
     path('project/', include('project.urls')),
-    path('accounts/', include('allauth.urls')),  #  all login routes
 
 
 

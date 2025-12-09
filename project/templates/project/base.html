@@ -25,20 +25,16 @@
                     <li><a href="{% url 'professor_list' %}">Professors</a></li>
                     <li><a href="{% url 'room_list' %}">Rooms</a></li>
                     
-                    {% if request.user.is_authenticated %}
-                    <li>
-                        logged in as: {{ request.user.email }}
-                    </li>
+                   
+                    
                     <li class="nav-logout">
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
                             <button type="submit"> Logout</button>
                         </form>
                     </li>
-                    {% else %}
                     <li><a href="{% url 'create_professor' %}">Create Account</a></li>
                     <li><a href="{% url 'login' %}"> Login</a></li>
-                    {% endif %}
 
                 </ul>
             </nav>

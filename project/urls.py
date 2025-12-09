@@ -29,7 +29,6 @@ urlpatterns =[
     path('professor/create', CreateProfessorView.as_view(), name='create_professor'),
     path('login/', login_view, name="login"),   
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
-    path("accounts/", include("allauth.urls")), # Google OAuth routes
     path('room/list', RoomListView.as_view(), name='room_list'),
     path('room/create', CreateRoomView.as_view(), name='create_room'),
     path('room/<int:pk>', RoomDetailView.as_view(), name='show_room'),
