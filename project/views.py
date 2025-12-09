@@ -1,3 +1,12 @@
+
+# file: project/views.py
+# Nicholas Zhang
+# nzhan01@bu.edu
+# created: 12/1/2025
+# views file containing all the views for the final project app
+
+
+
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView, RedirectView, View
@@ -12,7 +21,6 @@ from .forms import ProfessorForm
 
 # Create your views here.
 
-#change it class view
 def login_view(request):
     """
     Render the custom Google-only login page.
@@ -49,6 +57,7 @@ class RoomRequestCreateView(LoginRequiredMixin, CreateView):
         return form
 
     def form_valid(self, form):
+        # Create RoomRequest object but don't save to DB yet
         request_obj: RoomRequest = form.save(commit=False)
         request_obj.professor = self.request.user.professor
 
@@ -111,6 +120,7 @@ class RoomRequestCreateView(LoginRequiredMixin, CreateView):
         return redirect(self.get_success_url())
 
     def get_success_url(self):
+        '''After creating a RoomRequest and ClassMeeting, redirect to the ClassMeeting detail page.'''
         return reverse('show_meeting', kwargs={'pk': self.object.id})
 
     
@@ -120,9 +130,11 @@ class RoomRequestCreateView(LoginRequiredMixin, CreateView):
 
     
 class RoomRequestDeniedView(TemplateView):
+    '''View to show denial reason for a room request'''
     template_name = 'project/request_denied.html'
 
     def get_context_data(self, **kwargs):
+        '''Provide context variables for use in template'''
         context = super().get_context_data(**kwargs)
         request_id = self.kwargs.get('pk')  
         room_request = RoomRequest.objects.get(id=request_id)
@@ -158,6 +170,7 @@ class CourseView( DetailView):
     context_object_name = 'course'
 
     def get_context_data(self, **kwargs):
+        '''retrieve all sections for this course'''
         context = super().get_context_data(**kwargs)
 
         context['sections'] = Course.get_sections(self.object)
@@ -182,6 +195,7 @@ class CourseSectionView( DetailView):
     context_object_name = 'course_section'
 
     def get_context_data(self, **kwargs):
+        '''retrieve all meetings for this course section'''
         context = super().get_context_data(**kwargs)
         context['meetings'] = CourseSection.get_meetings(self.object)
         return context
@@ -193,6 +207,7 @@ class ClassMeetingView( DetailView):
     context_object_name = 'class_meeting'
 
     def get_context_data(self, **kwargs):
+        '''retrieve context data for the class meeting'''
         context = super().get_context_data(**kwargs)
         return context
 
@@ -217,6 +232,7 @@ class UpdateProfessorView( UpdateView):
     template_name = 'project/update_professor.html'
 
     def get_success_url(self):
+        '''After updating a professor, redirect to the professor detail page.'''
         return reverse('show_professor', kwargs={'pk': self.object.pk})
     
 
@@ -228,6 +244,7 @@ class CreateCourseView(CreateView):
     template_name= 'project/create_course.html'
 
     def get_success_url(self):
+        '''After creating a course, redirect to the course detail page.'''
         return reverse('show_course', kwargs={'pk': self.object.pk})
 
 class RoomDetailView(DetailView):
@@ -235,7 +252,9 @@ class RoomDetailView(DetailView):
     model = Room
     template_name = 'project/room_view.html'
     context_object_name = 'room'
+
     def get_context_data(self, **kwargs):
+        '''retrieve all meetings for this room'''
         context = super().get_context_data(**kwargs)
         context['meetings'] = Room.get_meetings(self.object)
         return context
@@ -247,6 +266,7 @@ class CreateRoomView(CreateView):
     template_name= 'project/create_room.html'
 
     def get_success_url(self):
+        '''After creating a room, redirect to the room detail page.'''
         return reverse('show_room', kwargs={'pk': self.object.pk})
     
 
@@ -264,6 +284,7 @@ class CreateCourseSectionView(CreateView):
         return form
         
     def get_context_data(self, **kwargs):
+        '''provide course info in context'''
         course_id = self.kwargs.get('pk')
         context = super().get_context_data(**kwargs)
         context['course'] = Course.objects.get(id=course_id)
@@ -271,6 +292,7 @@ class CreateCourseSectionView(CreateView):
     
 
     def get_success_url(self):
+        '''After creating a course section, redirect to the course section detail page.'''
         return reverse('show_section', kwargs={'pk': self.object.pk})
     
 
@@ -281,9 +303,11 @@ class DeleteClassMeetingView(DeleteView):
 
 
     def get_context_data(self, **kwargs):
+        '''provide class meeting info in context'''
         context = super().get_context_data(**kwargs)
         context['class_meeting'] = self.object
         return context
     
     def get_success_url(self):
+        '''After deleting a class meeting, redirect to the course section detail page.'''
         return reverse('show_section', kwargs={'pk': self.object.course_section.pk})

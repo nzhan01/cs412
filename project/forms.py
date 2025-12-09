@@ -1,4 +1,11 @@
-# forms.py
+
+
+# file: project/forms.py
+ #   Nicholas Zhang
+  #  nzhan01@bu.edu
+   # created: 12/2/2025
+    # py file for the forms of the final project
+
 from django import forms
 from .models import *
 

@@ -1,10 +1,17 @@
+# file: project/models.py
+# Nicholas Zhang
+# nzhan01@bu.edu
+# created: 12/1/2025
+# models file containing all the models for the final project app
+
+
 from django.db import models
 
 from django.contrib.auth.models import User
 from django.utils import timezone
 # Create your models here.
 
-
+''' Choices for days of the week'''
 DAY_CHOICES = [
     ('Monday', 'Monday'),
     ('Tuesday', 'Tuesday'),
@@ -94,6 +101,7 @@ class ClassMeeting(models.Model):
     
 
 class RoomRequest(models.Model):
+    '''model for a room request'''
     course_section = models.ForeignKey(CourseSection, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)

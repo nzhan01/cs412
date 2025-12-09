@@ -1,5 +1,5 @@
 
-# file: mini_insta/urls.py
+# file: project/urls.py
 # Nicholas Zhang
 # nzhan01@bu.edu
 # created: 12/2/2025
