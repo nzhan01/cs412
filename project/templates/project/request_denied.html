@@ -9,13 +9,26 @@
 
 {% extends "project/base.html" %}
 {% block content %}
-<h2>Room Request Denied</h2>
 
-<p>Your room request could not be processed because of the following conflict:</p>
+<h1 class="home-header">Room Request Denied</h1>
 
-<p>Your Request: {{room_request}}</p>
+<div class="home-container">
 
-<p><strong>{{ denial_reason }}</strong></p>
+    <div class="home-card">
+        <h2>Reason for Denial</h2>
+        <p>Your room request could not be processed due to the following conflict:</p>
 
-<a href="{% url 'create_room_request' %}">Submit another request</a>
+        <h3>Your Request</h3>
+        <p>{{ room_request }}</p>
+
+        <h3>Conflict</h3>
+        <p><strong>{{ denial_reason }}</strong></p>
+
+        <a href="{% url 'create_room_request' %}" class="action-link">
+            Submit Another Request
+        </a>
+    </div>
+
+</div>
+
 {% endblock %}

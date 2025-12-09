@@ -60,7 +60,7 @@ class RoomForm(forms.ModelForm):
             'room_type',
             'building',
             'capacity',
-            'availability',
+            
         ]
 
 class CourseForm(forms.ModelForm):

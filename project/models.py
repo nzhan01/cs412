@@ -20,6 +20,13 @@ DAY_CHOICES = [
     ('Friday', 'Friday'),
 ]
 
+ROOM_TYPES = [
+    ('Lecture', 'Lecture'),
+    ('Lab', 'Lab'),
+    ('Seminar', 'Seminar'),
+    ('Auditorium', 'Auditorium'),
+]
+
 class Course(models.Model):
     '''model for course information'''
 
@@ -54,10 +61,10 @@ class Room(models.Model):
     '''model for room information'''
 
     room_number = models.TextField()
-    room_type = models.TextField()
+    room_type = models.CharField(max_length=20, choices=ROOM_TYPES)
     building = models.TextField()
     capacity = models.IntegerField()
-    availability = models.TextField()
+    
 
     def __str__(self):
         '''return a string representation of the Room'''
