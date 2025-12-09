@@ -30,6 +30,10 @@ urlpatterns = [
     path('marathon_analytics/', include('marathon_analytics.urls')),
     path('voter_analytics/', include('voter_analytics.urls')),
     path('dadjokes/', include('dadjokes.urls')),
+    path('project/', include('project.urls')),
+    path('accounts/', include('allauth.urls')),  #  all login routes
+
+
 
 ]  
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

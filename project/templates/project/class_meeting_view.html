@@ -1,0 +1,30 @@
+
+
+<!-- show_all_profiles.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 12/2/2025
+    html file for the course_list template of the final project
+ 
+-->
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<a href="{% url 'show_course' class_meeting.course_section.course.pk %}"> Back to Course Page</a>
+<h1> {{class_meeting.course_section.course.name}} {{class_meeting.course_section.course.code}}</h1>
+<h2>{{class_meeting.professor.Firstname}} {{class_meeting.professor.Lastname}}</h2>
+
+<main class="grid-container">
+
+    <article>
+        <div>
+            <h2>Room:{{class_meeting.room.building}} {{class_meeting.room.room_number}}</h2>
+            <h2> Size: {{class_meeting.size}}</h2>
+            <h3> Meeting Time:{{class_meeting.day_of_week}} {{class_meeting.start_time}} - {{class_meeting.end_time}}</h3>
+        </div>
+            
+    </article>
+
+</main>
+{% endblock %}

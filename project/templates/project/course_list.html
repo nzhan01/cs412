@@ -1,0 +1,31 @@
+
+
+<!-- show_all_profiles.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 12/2/2025
+    html file for the course_list template of the final project
+ 
+-->
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h1> Showing all Courses</h1>
+
+<main class="grid-container">
+    {% for course in courses %}
+
+    <article>
+        <div>
+            <a href = "{% url 'show_course' course.pk %}"> 
+                <h2> {{course.code}} {{course.name}}</h2>
+            </a>
+            
+            
+            
+    </article>
+    
+    {% endfor %}
+</main>
+{% endblock %}

@@ -1,0 +1,27 @@
+
+<!-- show-profile.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 9/26/2025
+    html file for the show_profile template of the mini insta project
+ 
+-->
+{% extends "project/base.html" %}
+
+{% block content %}
+
+{% if request.user.is_authenticated and request.user == professor.user %}
+<h1> Hello {{professor.Firstname}}</h1>
+{% else %}
+<h1> Professor Details</h1>
+{% endif %}
+
+
+<main class="grid-container">
+
+    <h2> Name: {{professor.Firstname}} {{professor.Lastname}} </h2>
+    <h2> Email: {{professor.email}} </h2>
+    <h2> Department: {{professor.department}} </h2>
+    <h2> Availability: {{professor.availability}}</h2>
+</main>
+{% endblock %}

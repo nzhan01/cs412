@@ -1,0 +1,31 @@
+
+
+<!-- show_all_profiles.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 12/2/2025
+    html file for the course_list template of the final project
+ 
+-->
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h1> Showing all Rooms</h1>
+
+<main class="grid-container">
+    {% for room in rooms %}
+
+    <article>
+        <div>
+        
+                <h2> {{room.building}} {{room.room_number}}</h2>
+        </div>
+            
+            
+            
+    </article>
+    
+    {% endfor %}
+</main>
+{% endblock %}

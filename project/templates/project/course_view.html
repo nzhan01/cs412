@@ -1,0 +1,41 @@
+
+
+<!-- show_all_profiles.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 12/2/2025
+    html file for the course_list template of the final project
+ 
+-->
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<a href="{% url 'course_list' %}"> Back to Course List Page</a>
+<h1> {{course.name}}</h1>
+
+<main class="grid-container">
+
+    <article>
+        <div>
+            <h2> {{course.name}}</h2>
+            <h3> {{course.code}}</h3>
+            <h3>Description</h3>
+            <p>
+                {{course.description}}
+            </p>
+        </div>
+            <h3> Sections:</h3>
+            {%for section in sections %}
+                <a href="{% url 'show_section' section.pk %} ">
+                    <p>
+                        Section {{section.section_code}}: {{section.professor}} <br>
+                        
+                    </p>
+                    </a>
+                
+            {% endfor %}
+    </article>
+
+</main>
+{% endblock %}

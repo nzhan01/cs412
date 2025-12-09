@@ -1,0 +1,15 @@
+{% extends "project/base.html" %}
+
+{% block content %}
+<h1>Create Room Request for {{ request.user.professor.Firstname }} {{ request.user.professor.Lastname }} </h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Request</button>
+</form>
+
+
+
+
+{% endblock %}

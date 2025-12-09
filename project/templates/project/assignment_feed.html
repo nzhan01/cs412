@@ -1,0 +1,30 @@
+
+
+<!-- assignment_feed.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 12/2/2025
+    html file for the assignment_feed template of the final project
+ 
+-->
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h1> Showing all assignments</h1>
+
+<main class="grid-container">
+    {% for roomrequest in roomrequests %}
+
+    <div>
+             
+        <h2> Request for {{roomrequest.course_section}} in {{roomrequest.room.building}} {{roomrequest.room.room_number}} with {{roomrequest.professor.Lastname}} on {{roomrequest.day_of_week}} from {{roomrequest.start_time}} to {{roomrequest.end_time}} - Status: {{roomrequest.status}}</h2>
+     </div>  
+            
+            
+            
+   
+    
+    {% endfor %}
+</main>
+{% endblock %}

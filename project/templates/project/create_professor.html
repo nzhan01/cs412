@@ -1,0 +1,19 @@
+{% extends "project/base.html" %}
+
+{% block content %}
+<h1>Create Professor Profile</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Professor</button>
+</form>
+
+<hr>
+
+<p>Already created your profile?</p>
+<a href="{% url 'login' %}">
+    <button>Sign in with Google</button>
+</a>
+
+{% endblock %}

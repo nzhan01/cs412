@@ -1,0 +1,25 @@
+
+<!-- mini_insta/templates/mini_insta/login.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 12/8/2025
+    html file for the login template of the final project
+ 
+-->
+
+{% extends 'project/base.html' %}
+{% load socialaccount %}
+ 
+{% block content %}
+ 
+
+<h1>Sign In</h1>
+
+    <!-- Google Login Button -->
+    <a href="{% provider_login_url 'google' %}?next={% url 'course_list' %}">
+        <button>Sign in with Google</button>
+    </a>
+<hr>
+{% endblock %}
+
+

@@ -1,0 +1,55 @@
+
+<!-- base.html
+    Nicholas Zhang
+    nzhan01@bu.edu
+    created: 12/2/2025
+    html file for the base template of the final project
+ 
+-->
+{% load static %}
+
+<html>
+    <head>
+        <title> Class Scheduler</title>
+        <link rel="stylesheet" href="{% static 'voter_analytics_styles.css' %}">
+    </head>
+    <body>
+        <header>
+            <nav>
+                
+                <ul>
+                    <li><h2>Course Scheduler</h2></li>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'feed' %}">Feed</a></li>
+                    <li><a href="{% url 'course_list' %}">Courses</a></li>
+                    <li><a href="{% url 'professor_list' %}">Professors</a></li>
+                    <li><a href="{% url 'room_list' %}">Rooms</a></li>
+                    
+                    {% if request.user.is_authenticated %}
+                    <li>
+                        logged in as: {{ request.user.email }}
+                    </li>
+                    <li>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit"> Logout</button>
+                        </form>
+                    {% else %}
+                    <li><a href="{% url 'create_professor' %}">Create Account</a></li>
+                    <li><a href="{% url 'login' %}"> Login</a></li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+        </header>
+         
+         
+        <main>
+            
+            {% block content %}
+            {% endblock %}
+        </main>
+       
+         
+        
+</html>
