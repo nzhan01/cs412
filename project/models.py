@@ -99,7 +99,7 @@ class ClassMeeting(models.Model):
     day_of_week = models.CharField(max_length=20, choices=DAY_CHOICES)
     start_time = models.TimeField()
     end_time = models.TimeField()
-    request = models.ForeignKey('RoomRequest', null=True, blank=True, on_delete=models.CASCADE)
+    request = models.OneToOneField('RoomRequest', null=True, blank=True, on_delete=models.CASCADE)
 
 
     def __str__(self):

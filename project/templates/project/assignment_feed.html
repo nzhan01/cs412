@@ -42,7 +42,7 @@
                 <td>
                     <span class="status-badge {{ r.status|lower }}">
                         {% if r.status == "Approved" %}
-                            <a href="{% url 'show_meeting' r.pk %} ">
+                            <a href="{% url 'show_meeting' r.classmeeting.pk %} ">
                             {{ r.status }}
                             </a>
                         {% elif r.status == "Denied" %}

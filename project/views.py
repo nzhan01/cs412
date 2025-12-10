@@ -225,10 +225,15 @@ class AssignmentFeedView( ListView):
     template_name = 'project/assignment_feed.html'
     context_object_name = 'roomrequests'
 
+    
     def get_queryset(self):
-        '''override get_queryset to return all assignments ordered by date'''
-        results = super().get_queryset().order_by('-timestamp')
-        return results
+        approved = RoomRequest.objects.filter(
+        status='Approved',
+        classmeeting__isnull=False)
+        denied = RoomRequest.objects.filter(status='Denied')
+
+        return approved.union(denied).order_by('-timestamp')
+
     
 class CourseSectionView( DetailView):
     '''View to see course section info'''
