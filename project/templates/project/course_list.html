@@ -14,9 +14,11 @@
 
 <div class="list-header">
     <h1>Showing All Courses</h1>
+    {% if user.is_authenticated %}
     <a href="{% url 'create_course' %}" class="create-link">
         Create Course
     </a>
+    {% endif %}
 </div>
 
 <div class="card-grid">

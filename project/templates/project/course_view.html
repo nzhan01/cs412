@@ -20,7 +20,7 @@
     <h2>{{ course.code }}</h2>
 
     <h3>Description</h3>
-    <p>{{ course.description }}</p>
+    <p><strong>({{course.credits}} Credits)</strong> {{ course.description }}</p>
 
     <a href="{% url 'create_section' course.pk %}" class="action-link">
         Create Section

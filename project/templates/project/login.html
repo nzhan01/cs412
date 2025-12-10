@@ -12,13 +12,12 @@
  
 {% block content %}
 <div class="centered-form">
+    <h1>Sign In</h1>
     <form method="post" action="{% url 'login' %}" >
         {% csrf_token %}
         {{form}}
-        <!-- This basic login form works, but after login in
-         assumed the existance of a page at /registration/profile, which
-         does not exist.  -->
         <input type="hidden" name="next" value="{% url 'feed' %}">
+        <br>
         <input type="submit" value="Login">
         {% if request.GET.next %}
         <input type="hidden" name="next" value="{{request.GET.next}}">

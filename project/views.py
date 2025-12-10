@@ -25,7 +25,7 @@ from .forms import ProfessorForm
 
 class ProjectRequiredMixins(LoginRequiredMixin):
     
-    """Custom mixin that redirects to the mini_insta login page."""
+    """Custom mixin that redirects to the final project login page."""
 
     def get_login_url(self):
         """Return the URL for the app's custom login view."""
@@ -279,7 +279,7 @@ class UpdateProfessorView( UpdateView):
     
 
 
-class CreateCourseView(CreateView):
+class CreateCourseView(ProjectRequiredMixins, CreateView):
     '''view to create a new class '''
     model = Course
     form_class= CourseForm
@@ -312,7 +312,7 @@ class CreateRoomView(CreateView):
         return reverse('show_room', kwargs={'pk': self.object.pk})
     
 
-class CreateCourseSectionView(CreateView):
+class CreateCourseSectionView(ProjectRequiredMixins, CreateView):
     '''view to create a new class section '''
     model = CourseSection
     form_class= CourseSectionForm
@@ -338,7 +338,7 @@ class CreateCourseSectionView(CreateView):
         return reverse('show_section', kwargs={'pk': self.object.pk})
     
 
-class DeleteClassMeetingView(DeleteView):
+class DeleteClassMeetingView(ProjectRequiredMixins, DeleteView):
     '''view to delete a class meeting'''
     model = ClassMeeting
     template_name = 'project/delete_class_meeting.html'

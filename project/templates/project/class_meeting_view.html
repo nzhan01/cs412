@@ -34,9 +34,11 @@
 
     <h3 class="subheader">Meeting Time</h3>
     <p>{{ class_meeting.day_of_week }} — {{ class_meeting.start_time }} to {{ class_meeting.end_time }}</p>
+    {% if  request.user.is_authenticated and request.user == class_meeting.professor.user %}
     <a href="{% url 'delete_meeting' class_meeting.pk %}" class="d-action-link">
         Delete Meeting
     </a>
+    {% endif %}
 </div>
 
 {% endblock %}
