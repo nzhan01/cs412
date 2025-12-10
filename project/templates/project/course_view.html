@@ -22,9 +22,11 @@
     <h3>Description</h3>
     <p><strong>({{course.credits}} Credits)</strong> {{ course.description }}</p>
 
+    {% if user.is_authenticated %}
     <a href="{% url 'create_section' course.pk %}" class="action-link">
         Create Section
     </a>
+    {% endif %}
 
     <h3 class="subheader">Sections</h3>
 
