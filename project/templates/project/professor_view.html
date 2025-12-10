@@ -22,10 +22,11 @@
 </div>
 
 <div class="detail-card">
-
+    {% if request.user.is_authenticated and request.user == professor.user %}
     <a href="{% url 'update_professor' professor.pk %}" class="action-link">
         Update Profile
     </a>
+    {% endif %}
 
     <h2>Name: {{ professor.Firstname }} {{ professor.Lastname }}</h2>
     <h2>Email: {{ professor.email }}</h2>

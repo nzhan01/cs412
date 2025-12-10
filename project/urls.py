@@ -27,7 +27,7 @@ urlpatterns =[
     path('professor/list', ProfessorListView.as_view(), name='professor_list'),
     path('professor/<int:pk>/update', UpdateProfessorView.as_view(), name='update_professor'),
     path('professor/create', CreateProfessorView.as_view(), name='create_professor'),
-    path('login/', login_view, name="login"),   
+    path('login/', auth_views.LoginView.as_view(template_name='project/login.html'), name="login"),   
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
     path('room/list', RoomListView.as_view(), name='room_list'),
     path('room/create', CreateRoomView.as_view(), name='create_room'),

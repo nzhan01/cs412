@@ -19,18 +19,27 @@ from django.contrib.auth.models import User ## NEW
 from django.contrib.auth import login # NEW
 from .forms import ProfessorForm
 
-# Create your views here.
 
-def login_view(request):
-    """
-    Render the custom Google-only login page.
-    """
-    return render(request, "project/login.html")
+
+
+
+class ProjectRequiredMixins(LoginRequiredMixin):
+    
+    """Custom mixin that redirects to the mini_insta login page."""
+
+    def get_login_url(self):
+        """Return the URL for the app's custom login view."""
+        return reverse('login')
+    def get_professor(self):
+        """Return the professor object for the currently logged-in user."""
+        return Professor.objects.get(user=self.request.user)
+
 
 
 class HomePageView( TemplateView):
     '''View for the home page'''
     template_name = 'project/home.html'
+
 
 
 
@@ -40,10 +49,43 @@ class CreateProfessorView( CreateView):
     form_class = ProfessorForm
     template_name = 'project/create_professor.html'
 
+    def get_context_data(self, **kwargs):
+        '''Return the dictionary of context variables for use in the template.'''
+ 
+ 
+        # calling the superclass method
+        context = super().get_context_data(**kwargs)
+ 
+ 
+        context['user_form'] = UserCreationForm()
+        return context
+
+    def form_valid(self, form):
+        '''This method handles the form submission and saves the 
+        new object to the Django database.
+        '''
+        user_form = UserCreationForm(self.request.POST)
+
+        if not user_form.is_valid():
+            # Re-render the page with both forms and their errors
+            context = self.get_context_data(form=form, user_form=user_form)
+            return self.render_to_response(context)
+
+        
+        user_form.is_valid()
+        user = user_form.save()
+        login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+        form.instance.user = user
+        
+        response = super().form_valid(form)
+ 
+        return response
+    
+
     def get_success_url(self):
         return reverse('show_professor', kwargs={'pk': self.object.pk})
     
-class RoomRequestCreateView( CreateView):
+class RoomRequestCreateView( ProjectRequiredMixins, CreateView):
     '''View to create a new room request'''
     model = RoomRequest
     form_class = RoomRequestForm

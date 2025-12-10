@@ -104,7 +104,7 @@ class ClassMeeting(models.Model):
 
     def __str__(self):
         '''return a string representation of the ClassMeeting'''
-        return f'{self.course_section} in {self.room.room_number} with {self.professor.Lastname} on {self.day_of_week} from {self.start_time} to {self.end_time}'
+        return f'{self.course_section} in {self.room.building} {self.room.room_number} with {self.professor.Lastname} on {self.day_of_week} from {self.start_time} to {self.end_time}'
     
 
 class RoomRequest(models.Model):

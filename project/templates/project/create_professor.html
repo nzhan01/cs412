@@ -14,14 +14,15 @@
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
+        <hr>
+        <h2> Django User Creation</h2>
+        {% csrf_token %}
+        {{user_form.as_p}}
+       
+        
         <button type="submit" class="btn-primary">Create Professor</button>
     </form>
-    <div style="align-content: center;">
-        <p>Already created your profile?</p>
-        <a href="{% url 'login' %}">
-            <button>Sign in with Google</button>
-        </a>
-    </div>
+    
     
 </div>
 

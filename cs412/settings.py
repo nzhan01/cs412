@@ -55,8 +55,7 @@ INSTALLED_APPS = [
     'dadjokes',
     'rest_framework',
     'project',
-
-    'django.contrib.sites', 
+ 
     
 ]
 

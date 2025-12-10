@@ -26,16 +26,23 @@
                     <li><a href="{% url 'room_list' %}">Rooms</a></li>
                     
                    
-                    
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'create_room_request' %}" >
+                        Create Room Request
+                        </a>
+                    </li>
                     <li class="nav-logout">
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
                             <button type="submit"> Logout</button>
                         </form>
                     </li>
+                    <li>Logged in as {{ user.username }}</li>
+                    
+                    {% else %}
                     <li><a href="{% url 'create_professor' %}">Create Account</a></li>
                     <li><a href="{% url 'login' %}"> Login</a></li>
-
+                    {% endif %}
                 </ul>
             </nav>
         </header>

@@ -23,8 +23,9 @@
     <h3 class="subheader">Description</h3>
     <p>{{ course_section.course.description }}</p>
 
+    
+    <h3 class="subheader">Professor: {{course_section.professor.Firstname}} {{course_section.professor.Lastname}}</h3>
     <h3 class="subheader">Meetings</h3>
-
     {% for meeting in meetings %}
         <div class="detail-list-item">
             <a href="{% url 'show_meeting' meeting.pk %}">

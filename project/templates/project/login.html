@@ -12,13 +12,23 @@
  
 {% block content %}
 <div class="centered-form">
-    <h1>Sign In</h1>
-
-    <!--  Login Button -->
-   
-        <button class="btn-primary">Sign in with Google</button>
+    <form method="post" action="{% url 'login' %}" >
+        {% csrf_token %}
+        {{form}}
+        <!-- This basic login form works, but after login in
+         assumed the existance of a page at /registration/profile, which
+         does not exist.  -->
+        <input type="hidden" name="next" value="{% url 'feed' %}">
+        <input type="submit" value="Login">
+        {% if request.GET.next %}
+        <input type="hidden" name="next" value="{{request.GET.next}}">
+        {% else %}
+        <input type="hidden" name="next" value="{% url 'feed' %}">
+        {% endif %}
+    </form>
+        
     
-    </div>
+</div>
 
 
 
