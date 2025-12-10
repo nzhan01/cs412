@@ -8,15 +8,17 @@
 {% extends "project/base.html" %}
 
 {% block content %}
-<div class="form-container">
+<div class="centered-form">
     <h1>Update Professor Profile</h1>
 
     <form method="POST">
         {% csrf_token %}
         {{ form.as_table }}
-        <button type="submit">Update Professor</button>
+        <button type="submit" class="btn-primary">Update Professor</button>
     </form>
 </div>
+    
+
 
 
 
